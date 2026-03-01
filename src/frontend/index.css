@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================
+   FONT DECLARATIONS
+   =========================== */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans-Variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Medical Teal + Deep Navy Palette */
+    --background: 0.98 0.006 220;
+    --foreground: 0.18 0.025 240;
+
+    --card: 1 0 0;
+    --card-foreground: 0.18 0.025 240;
+
+    --popover: 1 0 0;
+    --popover-foreground: 0.18 0.025 240;
+
+    /* Primary: Deep Teal */
+    --primary: 0.42 0.13 200;
+    --primary-foreground: 0.98 0 0;
+
+    /* Secondary: Steel Blue */
+    --secondary: 0.92 0.02 220;
+    --secondary-foreground: 0.22 0.04 230;
+
+    --muted: 0.94 0.012 220;
+    --muted-foreground: 0.5 0.02 220;
+
+    /* Accent: Vibrant Teal */
+    --accent: 0.55 0.16 195;
+    --accent-foreground: 0.98 0 0;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.88 0.015 220;
+    --input: 0.9 0.01 220;
+    --ring: 0.42 0.13 200;
+
+    --chart-1: 0.55 0.16 195;
+    --chart-2: 0.42 0.13 200;
+    --chart-3: 0.65 0.12 180;
+    --chart-4: 0.35 0.08 240;
+    --chart-5: 0.7 0.1 160;
+
+    --sidebar: 0.18 0.035 240;
+    --sidebar-foreground: 0.985 0 0;
+    --sidebar-primary: 0.55 0.16 195;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.25 0.04 235;
+    --sidebar-accent-foreground: 0.9 0 0;
+    --sidebar-border: 0.28 0.04 235;
+    --sidebar-ring: 0.55 0.16 195;
+
+    /* Custom clinic tokens */
+    --clinic-teal: 0.55 0.16 195;
+    --clinic-navy: 0.18 0.035 240;
+    --clinic-teal-light: 0.88 0.06 195;
+    --clinic-gold: 0.78 0.15 75;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ===========================
+   CUSTOM UTILITIES
+   =========================== */
+@layer utilities {
+  .text-clinic-teal {
+    color: oklch(var(--clinic-teal));
+  }
+  .bg-clinic-teal {
+    background-color: oklch(var(--clinic-teal));
+  }
+  .bg-clinic-navy {
+    background-color: oklch(var(--clinic-navy));
+  }
+  .bg-clinic-teal-light {
+    background-color: oklch(var(--clinic-teal-light));
+  }
+  .text-clinic-gold {
+    color: oklch(var(--clinic-gold));
+  }
+  .border-clinic-teal {
+    border-color: oklch(var(--clinic-teal));
+  }
+}
+
+/* ===========================
+   SECTION HEADING STYLES
+   =========================== */
+@layer components {
+  .section-eyebrow {
+    @apply flex items-center justify-center gap-3 mb-4;
+  }
+  .section-eyebrow-line {
+    @apply h-px w-8 rounded-full;
+    background: oklch(var(--clinic-teal));
+  }
+  .section-eyebrow-label {
+    @apply text-xs font-bold tracking-[0.2em] uppercase;
+    color: oklch(var(--clinic-teal));
+  }
+  .section-heading {
+    @apply font-display font-extrabold tracking-tight;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ===========================
+   CARD HOVER GLOW
+   =========================== */
+@layer utilities {
+  .card-hover-glow {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .card-hover-glow:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px -8px oklch(0.42 0.13 200 / 0.2), 0 4px 12px oklch(0.42 0.13 200 / 0.08);
+  }
+}
