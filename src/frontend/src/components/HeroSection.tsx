@@ -137,7 +137,7 @@ export default function HeroSection() {
           {[
             { value: "8+", label: "Years Experience" },
             { value: "5000+", label: "Patients Treated" },
-            { value: "16+", label: "Treatments" },
+            { value: "10+", label: "Treatments" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="font-display text-2xl sm:text-3xl font-extrabold text-white">

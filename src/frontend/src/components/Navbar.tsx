@@ -45,9 +45,9 @@ export default function Navbar() {
           aria-label="Go to top"
         >
           <img
-            src="/assets/generated/clinic-logo-transparent.dim_300x100.png"
+            src="/assets/uploads/IMG-20250205-WA0003-1-1-1.jpg"
             alt="ORTHO-SPINE PAIN CLINIC"
-            className="h-10 lg:h-12 w-auto object-contain"
+            className="h-12 lg:h-14 w-auto object-contain rounded-md"
           />
         </button>
 

@@ -1,12 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { useClinicInfo } from "@/hooks/useQueries";
-import { Award, GraduationCap, Stethoscope, Users } from "lucide-react";
+import { Award, GraduationCap, Users } from "lucide-react";
 import { motion } from "motion/react";
 import type { Variants } from "motion/react";
 
 const credentials = [
   { icon: GraduationCap, label: "B.P.T. Graduate" },
-  { icon: Stethoscope, label: "M.P.T. Orthopedics" },
   { icon: Award, label: "Certified Manual Therapist" },
   { icon: Users, label: "Sports Rehab Specialist" },
 ];
@@ -151,7 +150,7 @@ export default function AboutSection() {
             <div className="grid grid-cols-3 gap-4 pt-2">
               {[
                 { value: "5000+", label: "Patients Healed" },
-                { value: "16+", label: "Specializations" },
+                { value: "10+", label: "Specializations" },
                 { value: "100%", label: "Dedication" },
               ].map((stat) => (
                 <div

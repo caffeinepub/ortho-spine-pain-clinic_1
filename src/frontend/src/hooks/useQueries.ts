@@ -5,7 +5,6 @@ import type {
   Service,
   Testimonial,
 } from "../backend.d";
-import { useActor } from "./useActor";
 
 // Fallback data
 const FALLBACK_CLINIC_INFO: ClinicInfo = {
@@ -130,7 +129,7 @@ const FALLBACK_BUSINESS_HOURS: BusinessHour[] = [
   { day: "Wednesday", time: "9:00 AM – 8:00 PM" },
   { day: "Thursday", time: "9:00 AM – 8:00 PM" },
   { day: "Friday", time: "9:00 AM – 8:00 PM" },
-  { day: "Saturday", time: "9:00 AM – 6:00 PM" },
+  { day: "Saturday", time: "10:00 AM – 8:00 PM" },
   { day: "Sunday", time: "10:00 AM – 2:00 PM" },
 ];
 
@@ -180,72 +179,33 @@ const FALLBACK_TESTIMONIALS: Testimonial[] = [
 ];
 
 export function useClinicInfo() {
-  const { actor, isFetching } = useActor();
   return useQuery<ClinicInfo>({
     queryKey: ["clinicInfo"],
-    queryFn: async () => {
-      if (!actor) return FALLBACK_CLINIC_INFO;
-      try {
-        return await actor.getClinicInfo();
-      } catch {
-        return FALLBACK_CLINIC_INFO;
-      }
-    },
-    enabled: !isFetching,
+    queryFn: async () => FALLBACK_CLINIC_INFO,
     placeholderData: FALLBACK_CLINIC_INFO,
   });
 }
 
 export function useServices() {
-  const { actor, isFetching } = useActor();
   return useQuery<Service[]>({
     queryKey: ["services"],
-    queryFn: async () => {
-      if (!actor) return FALLBACK_SERVICES;
-      try {
-        const result = await actor.getServices();
-        return result.length > 0 ? result : FALLBACK_SERVICES;
-      } catch {
-        return FALLBACK_SERVICES;
-      }
-    },
-    enabled: !isFetching,
+    queryFn: async () => FALLBACK_SERVICES,
     placeholderData: FALLBACK_SERVICES,
   });
 }
 
 export function useBusinessHours() {
-  const { actor, isFetching } = useActor();
   return useQuery<BusinessHour[]>({
     queryKey: ["businessHours"],
-    queryFn: async () => {
-      if (!actor) return FALLBACK_BUSINESS_HOURS;
-      try {
-        const result = await actor.getBusinessHours();
-        return result.length > 0 ? result : FALLBACK_BUSINESS_HOURS;
-      } catch {
-        return FALLBACK_BUSINESS_HOURS;
-      }
-    },
-    enabled: !isFetching,
+    queryFn: async () => FALLBACK_BUSINESS_HOURS,
     placeholderData: FALLBACK_BUSINESS_HOURS,
   });
 }
 
 export function useTestimonials() {
-  const { actor, isFetching } = useActor();
   return useQuery<Testimonial[]>({
     queryKey: ["testimonials"],
-    queryFn: async () => {
-      if (!actor) return FALLBACK_TESTIMONIALS;
-      try {
-        const result = await actor.getTestimonials();
-        return result.length > 0 ? result : FALLBACK_TESTIMONIALS;
-      } catch {
-        return FALLBACK_TESTIMONIALS;
-      }
-    },
-    enabled: !isFetching,
+    queryFn: async () => FALLBACK_TESTIMONIALS,
     placeholderData: FALLBACK_TESTIMONIALS,
   });
 }

@@ -49,9 +49,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2 space-y-4">
             <img
-              src="/assets/generated/clinic-logo-transparent.dim_300x100.png"
+              src="/assets/uploads/IMG-20250205-WA0003-1-1-1.jpg"
               alt="ORTHO-SPINE PAIN CLINIC"
-              className="h-12 w-auto object-contain brightness-0 invert"
+              className="h-16 w-auto object-contain rounded-md"
               loading="lazy"
             />
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
