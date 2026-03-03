@@ -15,7 +15,7 @@ export default function ContactSection() {
   const phones = clinic?.contactNumbers ?? ["8401282296", "6351002510"];
   const address =
     clinic?.address ??
-    "Mez floor, Swastik chambers, Athugar Street, opp. Kailash Sweets, Nanpura Timalyawad, Surat";
+    "Ortho-Spine Pain Clinic, Mez floor, Swastik chambers, Athugar Street, opp. Kailash Sweets, Nanpura Timalyawad, Surat";
   const instagram =
     clinic?.instagramUrl ??
     "https://www.instagram.com/ortho_spine.pain_clinic?igsh=NHh2MWcwcHM0aGQx";
@@ -24,14 +24,14 @@ export default function ContactSection() {
     <section
       id="contact"
       className="py-20 lg:py-28 relative"
-      style={{ background: "oklch(0.97 0.01 220)" }}
+      style={{ background: "oklch(0.99 0.004 15)" }}
     >
       {/* Decorative */}
       <div
         className="absolute top-0 right-0 w-96 h-96 opacity-5"
         style={{
           background:
-            "radial-gradient(circle at center, oklch(0.42 0.13 200), transparent 70%)",
+            "radial-gradient(circle at center, oklch(0.72 0.15 15), transparent 70%)",
         }}
       />
 
@@ -51,7 +51,7 @@ export default function ContactSection() {
           </div>
           <h2 className="section-heading font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground">
             Contact &{" "}
-            <span style={{ color: "oklch(0.42 0.13 200)" }}>Location</span>
+            <span style={{ color: "oklch(0.62 0.18 15)" }}>Location</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
             Ready to start your recovery? Reach out to us to book an appointment
@@ -73,14 +73,14 @@ export default function ContactSection() {
               className="p-6 rounded-2xl text-white relative overflow-hidden"
               style={{
                 background:
-                  "linear-gradient(135deg, oklch(0.22 0.045 240), oklch(0.42 0.13 200))",
+                  "linear-gradient(135deg, oklch(0.55 0.18 12), oklch(0.72 0.16 18))",
               }}
             >
               <div
                 className="absolute inset-0 opacity-10"
                 style={{
                   backgroundImage:
-                    "radial-gradient(circle at 80% 20%, oklch(0.65 0.16 195), transparent 60%)",
+                    "radial-gradient(circle at 80% 20%, oklch(0.85 0.10 15), transparent 60%)",
                 }}
               />
               <div className="relative z-10">
@@ -112,16 +112,16 @@ export default function ContactSection() {
             {/* Address */}
             <div
               className="p-6 rounded-2xl bg-white border border-border space-y-4"
-              style={{ boxShadow: "0 4px 24px -4px rgba(0,80,100,0.08)" }}
+              style={{ boxShadow: "0 4px 24px -4px rgba(120,0,0,0.08)" }}
             >
               <div className="flex items-start gap-4">
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
-                  style={{ background: "oklch(0.88 0.06 195 / 0.4)" }}
+                  style={{ background: "oklch(0.94 0.025 15 / 0.5)" }}
                 >
                   <MapPin
                     className="w-5 h-5"
-                    style={{ color: "oklch(0.42 0.13 200)" }}
+                    style={{ color: "oklch(0.62 0.18 15)" }}
                   />
                 </div>
                 <div>
@@ -136,7 +136,7 @@ export default function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 mt-2 text-sm font-semibold hover:underline"
-                    style={{ color: "oklch(0.42 0.13 200)" }}
+                    style={{ color: "oklch(0.62 0.18 15)" }}
                   >
                     <MapPin className="w-3.5 h-3.5" />
                     Get Directions on Google Maps
@@ -210,7 +210,7 @@ export default function ContactSection() {
                   asChild
                   className="font-semibold"
                   style={{
-                    background: "oklch(0.42 0.13 200)",
+                    background: "oklch(0.62 0.18 15)",
                     color: "white",
                   }}
                 >
@@ -233,7 +233,7 @@ export default function ContactSection() {
           >
             <div
               className="px-4 py-3 flex items-center gap-2"
-              style={{ background: "oklch(0.22 0.045 240)" }}
+              style={{ background: "oklch(0.55 0.18 12)" }}
             >
               <MapPin className="w-4 h-4 text-white/70" />
               <span className="text-sm font-medium text-white/90">

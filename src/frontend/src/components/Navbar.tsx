@@ -9,6 +9,8 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Why Us", href: "#why-us" },
   { label: "Testimonials", href: "#testimonials" },
+  { label: "Appointment", href: "#appointment" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -24,8 +26,15 @@ export default function Navbar() {
 
   const scrollTo = (href: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    // Wait for mobile menu close animation (250ms) before scrolling
+    setTimeout(() => {
+      const el = document.querySelector(href);
+      if (el) {
+        const navHeight = 80; // account for fixed navbar height
+        const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    }, 300);
   };
 
   return (

@@ -71,10 +71,15 @@ export default {
           ring: "oklch(var(--sidebar-ring))",
         },
         clinic: {
-          teal: "oklch(var(--clinic-teal))",
-          navy: "oklch(var(--clinic-navy))",
-          "teal-light": "oklch(var(--clinic-teal-light))",
+          teal: "oklch(var(--clinic-rose))",
+          navy: "oklch(var(--clinic-dark))",
+          "teal-light": "oklch(var(--clinic-rose-light))",
           gold: "oklch(var(--clinic-gold))",
+          rose: "oklch(var(--clinic-rose))",
+          "rose-light": "oklch(var(--clinic-rose-light))",
+          "rose-soft": "oklch(var(--clinic-rose-soft))",
+          coral: "oklch(var(--clinic-coral))",
+          dark: "oklch(var(--clinic-dark))",
         },
       },
       borderRadius: {
@@ -84,9 +89,9 @@ export default {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgba(0,0,0,0.05)",
-        card: "0 4px 24px -4px rgba(0,80,100,0.12), 0 1px 4px rgba(0,80,100,0.06)",
-        hero: "0 20px 60px -10px rgba(0,60,90,0.3)",
-        teal: "0 4px 20px -2px oklch(55% 0.16 195 / 0.25)",
+        card: "0 4px 24px -4px rgba(200,80,80,0.10), 0 1px 4px rgba(200,80,80,0.05)",
+        hero: "0 20px 60px -10px rgba(200,80,80,0.20)",
+        teal: "0 4px 20px -2px oklch(62% 0.18 15 / 0.20)",
       },
       keyframes: {
         "accordion-down": {

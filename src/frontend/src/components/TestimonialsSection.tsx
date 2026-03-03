@@ -26,15 +26,15 @@ function PatientAvatar({ name }: { name: string }) {
     .slice(0, 2);
 
   // Pick a consistent hue based on name
-  const hues = [195, 210, 180, 225, 165, 240];
+  const hues = [15, 12, 18, 10, 20, 14];
   const hue = hues[name.charCodeAt(0) % hues.length];
 
   return (
     <div
       className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
       style={{
-        background: `linear-gradient(135deg, oklch(0.42 0.13 ${hue}), oklch(0.58 0.16 ${hue}))`,
-        boxShadow: `0 2px 8px oklch(0.42 0.13 ${hue} / 0.3)`,
+        background: `linear-gradient(135deg, oklch(0.62 0.18 ${hue}), oklch(0.72 0.14 ${hue}))`,
+        boxShadow: `0 2px 8px oklch(0.62 0.18 ${hue} / 0.25)`,
       }}
       aria-hidden="true"
     >
@@ -58,8 +58,8 @@ function TestimonialCard({
       <div
         className="h-full bg-white rounded-2xl flex flex-col overflow-hidden"
         style={{
-          border: "1px solid oklch(0.88 0.015 220)",
-          boxShadow: "0 2px 12px oklch(0.42 0.13 200 / 0.06)",
+          border: "1px solid oklch(0.90 0.016 15)",
+          boxShadow: "0 2px 12px oklch(0.62 0.18 15 / 0.06)",
         }}
       >
         {/* Top gradient accent */}
@@ -67,7 +67,7 @@ function TestimonialCard({
           className="h-1 w-full"
           style={{
             background:
-              "linear-gradient(90deg, oklch(0.45 0.14 200), oklch(0.58 0.17 195))",
+              "linear-gradient(90deg, oklch(0.62 0.18 12), oklch(0.75 0.14 18))",
           }}
         />
 
@@ -78,7 +78,7 @@ function TestimonialCard({
             {/* Decorative large quote */}
             <div
               className="font-display text-6xl leading-none select-none pointer-events-none"
-              style={{ color: "oklch(0.88 0.06 195 / 0.6)", lineHeight: "0.8" }}
+              style={{ color: "oklch(0.88 0.05 15 / 0.6)", lineHeight: "0.8" }}
               aria-hidden="true"
             >
               "
@@ -115,12 +115,12 @@ export default function TestimonialsSection() {
     <section
       id="testimonials"
       className="py-20 lg:py-32 relative overflow-hidden"
-      style={{ background: "oklch(0.965 0.012 215)" }}
+      style={{ background: "oklch(0.975 0.010 15)" }}
     >
       {/* Decorative circle */}
       <div
         className="absolute top-0 right-0 w-96 h-96 -translate-y-1/2 translate-x-1/3 rounded-full opacity-[0.04] pointer-events-none"
-        style={{ background: "oklch(0.42 0.13 200)" }}
+        style={{ background: "oklch(0.72 0.15 15)" }}
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,7 +139,7 @@ export default function TestimonialsSection() {
           </div>
           <h2 className="section-heading font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground">
             What Our{" "}
-            <span style={{ color: "oklch(0.42 0.13 200)" }}>Patients Say</span>
+            <span style={{ color: "oklch(0.62 0.18 15)" }}>Patients Say</span>
           </h2>
           <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
             Real experiences from real patients who found relief and recovery at
@@ -159,8 +159,8 @@ export default function TestimonialsSection() {
             className="inline-flex items-center gap-6 px-8 py-5 rounded-2xl text-white"
             style={{
               background:
-                "linear-gradient(135deg, oklch(0.25 0.05 240), oklch(0.42 0.13 200))",
-              boxShadow: "0 8px 32px oklch(0.42 0.13 200 / 0.25)",
+                "linear-gradient(135deg, oklch(0.55 0.18 12), oklch(0.72 0.16 18))",
+              boxShadow: "0 8px 32px oklch(0.62 0.18 15 / 0.22)",
             }}
           >
             <div className="text-center">

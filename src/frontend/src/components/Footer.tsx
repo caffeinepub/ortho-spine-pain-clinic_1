@@ -23,24 +23,27 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative overflow-hidden"
-      style={{ background: "oklch(0.14 0.03 240)" }}
+      className="relative overflow-hidden border-t"
+      style={{
+        background: "oklch(0.975 0.010 15)",
+        borderColor: "oklch(0.90 0.018 15)",
+      }}
     >
       {/* Top accent */}
       <div
         className="h-1 w-full"
         style={{
           background:
-            "linear-gradient(90deg, oklch(0.42 0.13 200), oklch(0.55 0.16 195), oklch(0.42 0.13 200))",
+            "linear-gradient(90deg, oklch(0.62 0.18 12), oklch(0.75 0.15 18), oklch(0.62 0.18 12))",
         }}
       />
 
       {/* Decorative */}
       <div
-        className="absolute top-0 left-0 w-96 h-96 opacity-5 -translate-x-1/3 -translate-y-1/3"
+        className="absolute top-0 right-0 w-80 h-80 opacity-[0.06] translate-x-1/3 -translate-y-1/3 pointer-events-none rounded-full"
         style={{
           background:
-            "radial-gradient(circle, oklch(0.55 0.16 195), transparent 70%)",
+            "radial-gradient(circle, oklch(0.72 0.15 15), transparent 70%)",
         }}
       />
 
@@ -54,10 +57,16 @@ export default function Footer() {
               className="h-16 w-auto object-contain rounded-md"
               loading="lazy"
             />
-            <p className="text-white/60 text-sm leading-relaxed max-w-xs">
+            <p
+              className="text-sm leading-relaxed max-w-xs"
+              style={{ color: "oklch(0.45 0.03 20)" }}
+            >
               Expert physiotherapy care for a pain-free, active life. Under the
               guidance of{" "}
-              <span className="text-white/80 font-medium">
+              <span
+                className="font-semibold"
+                style={{ color: "oklch(0.28 0.02 20)" }}
+              >
                 {clinic?.doctorName ?? "Dr. Arbaz Shaikh"}
               </span>
               , we help you recover faster and stronger.
@@ -70,8 +79,12 @@ export default function Footer() {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white/80 hover:text-white transition-colors"
-              style={{ background: "oklch(1 0 0 / 0.08)" }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              style={{
+                background: "oklch(0.62 0.18 15 / 0.10)",
+                color: "oklch(0.50 0.16 15)",
+                border: "1px solid oklch(0.72 0.15 15 / 0.25)",
+              }}
               aria-label="Instagram"
             >
               <Instagram className="w-4 h-4" />
@@ -83,7 +96,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-display font-bold text-sm uppercase tracking-widest mb-4"
-              style={{ color: "oklch(0.65 0.16 195)" }}
+              style={{ color: "oklch(0.62 0.18 15)" }}
             >
               Quick Links
             </h3>
@@ -93,7 +106,7 @@ export default function Footer() {
                   <button
                     type="button"
                     onClick={() => scrollTo(link.href)}
-                    className="text-white/60 hover:text-white text-sm transition-colors text-left"
+                    className="text-sm transition-colors text-left footer-nav-link"
                   >
                     {link.label}
                   </button>
@@ -106,25 +119,35 @@ export default function Footer() {
           <div>
             <h3
               className="font-display font-bold text-sm uppercase tracking-widest mb-4"
-              style={{ color: "oklch(0.65 0.16 195)" }}
+              style={{ color: "oklch(0.62 0.18 15)" }}
             >
               Contact Us
             </h3>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-white/40 mt-0.5 flex-shrink-0" />
-                <p className="text-white/60 text-sm leading-relaxed">
+                <MapPin
+                  className="w-4 h-4 mt-0.5 flex-shrink-0"
+                  style={{ color: "oklch(0.72 0.15 15)" }}
+                />
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "oklch(0.45 0.03 20)" }}
+                >
                   {clinic?.address ??
-                    "Mez floor, Swastik chambers, Athugar Street, opp. Kailash Sweets, Nanpura Timalyawad, Surat"}
+                    "Ortho-Spine Pain Clinic, Mez floor, Swastik chambers, Athugar Street, opp. Kailash Sweets, Nanpura Timalyawad, Surat"}
                 </p>
               </div>
               {(clinic?.contactNumbers ?? ["8401282296", "6351002510"]).map(
                 (phone) => (
                   <div key={phone} className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-white/40 flex-shrink-0" />
+                    <Phone
+                      className="w-4 h-4 flex-shrink-0"
+                      style={{ color: "oklch(0.72 0.15 15)" }}
+                    />
                     <a
                       href={`tel:${phone}`}
-                      className="text-white/60 hover:text-white text-sm transition-colors"
+                      className="text-sm transition-colors hover:underline"
+                      style={{ color: "oklch(0.45 0.03 20)" }}
                     >
                       {phone}
                     </a>
@@ -136,18 +159,28 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-sm text-center sm:text-left">
+        <div
+          className="mt-12 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderColor: "oklch(0.88 0.018 15)" }}
+        >
+          <p
+            className="text-sm text-center sm:text-left"
+            style={{ color: "oklch(0.55 0.03 20)" }}
+          >
             © {year} ORTHO-SPINE PAIN CLINIC. All rights reserved.
           </p>
-          <p className="text-white/40 text-sm flex items-center gap-1">
+          <p
+            className="text-sm flex items-center gap-1"
+            style={{ color: "oklch(0.55 0.03 20)" }}
+          >
             Built with{" "}
-            <Heart className="w-3.5 h-3.5 text-red-400 fill-red-400" /> using{" "}
+            <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" /> using{" "}
             <a
               href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(hostname)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/60 hover:text-white transition-colors underline"
+              className="hover:underline transition-colors"
+              style={{ color: "oklch(0.55 0.18 15)" }}
             >
               caffeine.ai
             </a>

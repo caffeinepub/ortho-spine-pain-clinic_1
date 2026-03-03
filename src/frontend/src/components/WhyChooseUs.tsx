@@ -13,7 +13,7 @@ const reasons = [
     icon: UserCheck,
     title: "Expert Specialist Doctor",
     description:
-      "Dr. Arbaz Shaikh brings 8+ years of specialized clinical experience in orthopedic and neurological physiotherapy, ensuring accurate diagnosis and effective treatment.",
+      "Dr. Arbaz Shaikh brings 6+ years of specialized clinical experience in orthopedic and neurological physiotherapy, ensuring accurate diagnosis and effective treatment.",
   },
   {
     icon: Microscope,
@@ -57,7 +57,7 @@ export default function WhyChooseUs() {
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23006080' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23800000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
@@ -77,7 +77,7 @@ export default function WhyChooseUs() {
           </div>
           <h2 className="section-heading font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground">
             Why Choose{" "}
-            <span style={{ color: "oklch(0.42 0.13 200)" }}>Ortho-Spine</span>?
+            <span style={{ color: "oklch(0.62 0.18 15)" }}>Ortho-Spine</span>?
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg">
             We combine medical expertise, advanced technology, and compassionate
@@ -105,7 +105,7 @@ export default function WhyChooseUs() {
                 <div
                   className="h-full p-7 rounded-2xl border bg-white transition-colors duration-300"
                   style={{
-                    borderColor: "oklch(0.88 0.015 220)",
+                    borderColor: "oklch(0.90 0.016 15)",
                   }}
                 >
                   {/* Icon with number */}
@@ -114,8 +114,8 @@ export default function WhyChooseUs() {
                       className="w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
                       style={{
                         background:
-                          "linear-gradient(135deg, oklch(0.42 0.13 200), oklch(0.58 0.17 195))",
-                        boxShadow: "0 4px 14px oklch(0.42 0.13 200 / 0.25)",
+                          "linear-gradient(135deg, oklch(0.58 0.18 12), oklch(0.72 0.16 18))",
+                        boxShadow: "0 4px 14px oklch(0.62 0.18 15 / 0.22)",
                       }}
                     >
                       <Icon className="w-7 h-7 text-white" />
@@ -123,7 +123,7 @@ export default function WhyChooseUs() {
                     <span
                       className="font-display text-5xl font-extrabold leading-none select-none"
                       style={{
-                        color: "oklch(0.88 0.015 220)",
+                        color: "oklch(0.88 0.016 15)",
                         letterSpacing: "-0.04em",
                       }}
                       aria-hidden="true"
@@ -156,14 +156,14 @@ export default function WhyChooseUs() {
           className="mt-14 rounded-2xl p-8 sm:p-10 text-white text-center relative overflow-hidden"
           style={{
             background:
-              "linear-gradient(135deg, oklch(0.22 0.045 240), oklch(0.35 0.1 200))",
+              "linear-gradient(135deg, oklch(0.55 0.18 12), oklch(0.72 0.16 18))",
           }}
         >
           <div
             className="absolute inset-0 opacity-10"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 30% 50%, oklch(0.65 0.16 195), transparent 60%)",
+                "radial-gradient(circle at 30% 50%, oklch(0.85 0.10 15), transparent 60%)",
             }}
           />
           <div className="relative z-10">
@@ -178,7 +178,7 @@ export default function WhyChooseUs() {
               <a
                 href="tel:8401282296"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 hover:opacity-90"
-                style={{ background: "oklch(0.55 0.16 195)", color: "white" }}
+                style={{ background: "oklch(0.62 0.18 15)", color: "white" }}
               >
                 📞 84012 82296
               </a>

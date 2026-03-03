@@ -1,0 +1,388 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Calendar, CheckCircle } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+
+const SERVICES = [
+  "Chiropractic",
+  "Osteopathy",
+  "Back Pain Treatment",
+  "Knee Pain Management",
+  "Shoulder Disorders",
+  "Neck Pain & Cervical",
+  "Sports Injury Rehab",
+  "Post-Surgical Rehab",
+  "Sciatica & Disc Problems",
+  "Electrotherapy",
+  "Dry Needling",
+  "Neurological Physiotherapy",
+  "Postural Correction",
+  "Pediatric Physiotherapy",
+  "Geriatric Physiotherapy",
+  "Manual Therapy",
+  "Cupping Therapy",
+  "Home Visit Physiotherapy",
+];
+
+const today = new Date().toISOString().split("T")[0];
+
+export default function AppointmentSection() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [date, setDate] = useState("");
+  const [treatment, setTreatment] = useState("");
+  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const text = `New Appointment Request:\nName: ${name}\nPhone: ${phone}\nDate: ${date}\nTreatment: ${treatment}\nMessage: ${message}`;
+    const waUrl = `https://wa.me/918401282296?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+
+    setSubmitted(true);
+  };
+
+  const handleReset = () => {
+    setName("");
+    setPhone("");
+    setDate("");
+    setTreatment("");
+    setMessage("");
+    setSubmitted(false);
+  };
+
+  return (
+    <section
+      id="appointment"
+      className="py-20 lg:py-28 relative overflow-hidden"
+      style={{ background: "oklch(0.975 0.010 15)" }}
+    >
+      {/* Decorative blobs */}
+      <div
+        className="absolute -top-24 -right-24 w-80 h-80 rounded-full opacity-[0.05] pointer-events-none"
+        style={{ background: "oklch(0.72 0.15 15)" }}
+      />
+      <div
+        className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full opacity-[0.04] pointer-events-none"
+        style={{ background: "oklch(0.80 0.12 15)" }}
+      />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <div className="section-eyebrow">
+            <div className="section-eyebrow-line" />
+            <span className="section-eyebrow-label">Schedule Your Visit</span>
+            <div className="section-eyebrow-line" />
+          </div>
+          <h2 className="section-heading font-display text-4xl sm:text-5xl font-extrabold text-foreground">
+            Book an{" "}
+            <span style={{ color: "oklch(0.55 0.18 15)" }}>Appointment</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+            Fill in your details and we'll confirm your appointment. Your
+            request is sent directly via WhatsApp for a quick response.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.65, delay: 0.1 }}
+          className="bg-white rounded-2xl p-8 shadow-lg"
+          style={{
+            border: "1.5px solid oklch(0.88 0.025 15)",
+            boxShadow:
+              "0 8px 40px -8px oklch(0.62 0.18 15 / 0.12), 0 2px 12px oklch(0 0 0 / 0.04)",
+          }}
+        >
+          {/* Icon header strip */}
+          <div
+            className="flex items-center gap-3 mb-6 pb-5 border-b"
+            style={{ borderColor: "oklch(0.93 0.016 15)" }}
+          >
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center"
+              style={{
+                background:
+                  "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
+              }}
+            >
+              <Calendar className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p
+                className="font-semibold text-sm"
+                style={{ color: "oklch(0.30 0.04 18)" }}
+              >
+                Request an Appointment
+              </p>
+              <p className="text-xs text-muted-foreground">
+                We'll WhatsApp you to confirm your slot
+              </p>
+            </div>
+          </div>
+
+          <AnimatePresence mode="wait">
+            {!submitted ? (
+              <motion.form
+                key="form"
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.2 }}
+                onSubmit={handleSubmit}
+                className="space-y-5"
+              >
+                {/* Full Name */}
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="appt-name"
+                    className="text-sm font-semibold"
+                    style={{ color: "oklch(0.35 0.04 18)" }}
+                  >
+                    Full Name{" "}
+                    <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
+                  </Label>
+                  <Input
+                    id="appt-name"
+                    data-ocid="appointment.name_input"
+                    type="text"
+                    placeholder="Your full name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="h-11 text-sm focus-visible:ring-1"
+                    style={
+                      {
+                        borderColor: "oklch(0.88 0.025 15)",
+                        "--tw-ring-color": "oklch(0.62 0.18 15)",
+                      } as React.CSSProperties
+                    }
+                  />
+                </div>
+
+                {/* Phone Number */}
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="appt-phone"
+                    className="text-sm font-semibold"
+                    style={{ color: "oklch(0.35 0.04 18)" }}
+                  >
+                    Phone Number{" "}
+                    <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
+                  </Label>
+                  <Input
+                    id="appt-phone"
+                    data-ocid="appointment.phone_input"
+                    type="tel"
+                    placeholder="Your phone number"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="h-11 text-sm focus-visible:ring-1"
+                    style={
+                      {
+                        borderColor: "oklch(0.88 0.025 15)",
+                        "--tw-ring-color": "oklch(0.62 0.18 15)",
+                      } as React.CSSProperties
+                    }
+                  />
+                </div>
+
+                {/* Preferred Date */}
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="appt-date"
+                    className="text-sm font-semibold"
+                    style={{ color: "oklch(0.35 0.04 18)" }}
+                  >
+                    Preferred Date{" "}
+                    <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
+                  </Label>
+                  <Input
+                    id="appt-date"
+                    data-ocid="appointment.date_input"
+                    type="date"
+                    min={today}
+                    required
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="h-11 text-sm focus-visible:ring-1"
+                    style={
+                      {
+                        borderColor: "oklch(0.88 0.025 15)",
+                        "--tw-ring-color": "oklch(0.62 0.18 15)",
+                      } as React.CSSProperties
+                    }
+                  />
+                </div>
+
+                {/* Treatment Needed */}
+                <div className="space-y-2">
+                  <Label
+                    className="text-sm font-semibold"
+                    style={{ color: "oklch(0.35 0.04 18)" }}
+                  >
+                    Treatment Needed{" "}
+                    <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
+                  </Label>
+                  <Select
+                    required
+                    value={treatment}
+                    onValueChange={setTreatment}
+                  >
+                    <SelectTrigger
+                      data-ocid="appointment.treatment_select"
+                      className="h-11 text-sm focus:ring-1"
+                      style={
+                        {
+                          borderColor: "oklch(0.88 0.025 15)",
+                          "--tw-ring-color": "oklch(0.62 0.18 15)",
+                        } as React.CSSProperties
+                      }
+                    >
+                      <SelectValue placeholder="Select a treatment" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SERVICES.map((svc) => (
+                        <SelectItem key={svc} value={svc}>
+                          {svc}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Message / Symptoms */}
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="appt-message"
+                    className="text-sm font-semibold"
+                    style={{ color: "oklch(0.35 0.04 18)" }}
+                  >
+                    Message / Symptoms{" "}
+                    <span className="text-muted-foreground font-normal text-xs">
+                      (optional)
+                    </span>
+                  </Label>
+                  <Textarea
+                    id="appt-message"
+                    data-ocid="appointment.message_textarea"
+                    placeholder="Describe your symptoms or concerns..."
+                    rows={4}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="text-sm resize-none focus-visible:ring-1"
+                    style={
+                      {
+                        borderColor: "oklch(0.88 0.025 15)",
+                        "--tw-ring-color": "oklch(0.62 0.18 15)",
+                      } as React.CSSProperties
+                    }
+                  />
+                </div>
+
+                {/* Submit */}
+                <Button
+                  type="submit"
+                  data-ocid="appointment.submit_button"
+                  className="w-full h-12 text-white font-semibold text-base"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
+                    boxShadow: "0 4px 20px oklch(0.62 0.18 15 / 0.30)",
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-5 h-5 mr-2"
+                    aria-hidden="true"
+                  >
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                  </svg>
+                  Send via WhatsApp
+                </Button>
+              </motion.form>
+            ) : (
+              <motion.div
+                key="success"
+                data-ocid="appointment.success_state"
+                initial={{ opacity: 0, scale: 0.95, y: 12 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="flex flex-col items-center text-center py-8 gap-5"
+              >
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center"
+                  style={{ background: "oklch(0.94 0.08 145)" }}
+                >
+                  <CheckCircle
+                    className="w-10 h-10"
+                    style={{ color: "oklch(0.55 0.20 145)" }}
+                  />
+                </div>
+                <div>
+                  <h3
+                    className="font-display text-2xl font-bold mb-2"
+                    style={{ color: "oklch(0.30 0.04 18)" }}
+                  >
+                    Appointment Requested!
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
+                    Your appointment request has been sent via WhatsApp. We'll
+                    confirm your slot shortly.
+                  </p>
+                </div>
+                <div
+                  className="w-full rounded-xl px-4 py-3 text-sm"
+                  style={{
+                    background: "oklch(0.97 0.012 145)",
+                    border: "1px solid oklch(0.88 0.06 145)",
+                    color: "oklch(0.38 0.14 145)",
+                  }}
+                >
+                  <strong>Name:</strong> {name} &nbsp;·&nbsp;{" "}
+                  <strong>Date:</strong> {date}
+                </div>
+                <Button
+                  type="button"
+                  data-ocid="appointment.reset_button"
+                  variant="outline"
+                  onClick={handleReset}
+                  className="font-semibold"
+                  style={{
+                    borderColor: "oklch(0.72 0.15 15)",
+                    color: "oklch(0.55 0.18 15)",
+                  }}
+                >
+                  Book Another Appointment
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

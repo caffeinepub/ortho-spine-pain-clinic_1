@@ -27,7 +27,7 @@ export default function BusinessHoursSection() {
             </div>
             <h2 className="section-heading font-display text-4xl sm:text-5xl font-extrabold text-foreground">
               Clinic{" "}
-              <span style={{ color: "oklch(0.42 0.13 200)" }}>Timings</span>
+              <span style={{ color: "oklch(0.62 0.18 15)" }}>Timings</span>
             </h2>
             <p className="mt-3 text-muted-foreground">
               We are open 7 days a week to serve you better.
@@ -47,7 +47,7 @@ export default function BusinessHoursSection() {
               className="p-5 flex items-center gap-3"
               style={{
                 background:
-                  "linear-gradient(135deg, oklch(0.22 0.045 240), oklch(0.35 0.1 200))",
+                  "linear-gradient(135deg, oklch(0.55 0.18 12), oklch(0.70 0.16 18))",
               }}
             >
               <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
@@ -82,22 +82,22 @@ export default function BusinessHoursSection() {
                       {isToday && (
                         <CheckCircle
                           className="w-4 h-4 flex-shrink-0"
-                          style={{ color: "oklch(0.55 0.16 195)" }}
+                          style={{ color: "oklch(0.62 0.18 15)" }}
                         />
                       )}
                       <span
                         className={`font-medium text-sm ${
                           isToday ? "font-semibold" : "text-foreground"
                         }`}
-                        style={isToday ? { color: "oklch(0.35 0.12 200)" } : {}}
+                        style={isToday ? { color: "oklch(0.45 0.18 15)" } : {}}
                       >
                         {hour.day}
                         {isToday && (
                           <span
                             className="ml-2 text-xs px-2 py-0.5 rounded-full font-semibold"
                             style={{
-                              background: "oklch(0.55 0.16 195 / 0.15)",
-                              color: "oklch(0.42 0.13 200)",
+                              background: "oklch(0.72 0.15 15 / 0.15)",
+                              color: "oklch(0.55 0.18 15)",
                             }}
                           >
                             Today
@@ -109,8 +109,8 @@ export default function BusinessHoursSection() {
                       className="text-sm font-medium"
                       style={
                         isToday
-                          ? { color: "oklch(0.42 0.13 200)", fontWeight: "600" }
-                          : { color: "oklch(0.5 0.02 220)" }
+                          ? { color: "oklch(0.55 0.18 15)", fontWeight: "600" }
+                          : { color: "oklch(0.5 0.02 25)" }
                       }
                     >
                       {hour.time}
@@ -124,15 +124,15 @@ export default function BusinessHoursSection() {
             <div
               className="px-6 py-4 text-center text-sm"
               style={{
-                background: "oklch(0.96 0.015 220)",
-                color: "oklch(0.5 0.02 220)",
+                background: "oklch(0.97 0.010 15)",
+                color: "oklch(0.50 0.02 15)",
               }}
             >
               📍 Walk-ins welcome · Home visits available on request ·{" "}
               <a
                 href="tel:8401282296"
                 className="font-semibold hover:underline"
-                style={{ color: "oklch(0.42 0.13 200)" }}
+                style={{ color: "oklch(0.55 0.18 15)" }}
               >
                 Call for appointment
               </a>

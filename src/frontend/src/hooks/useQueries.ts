@@ -26,10 +26,34 @@ const FALLBACK_CLINIC_INFO: ClinicInfo = {
 
 const FALLBACK_SERVICES: Service[] = [
   {
+    name: "Chiropractic",
+    description:
+      "Specialized spinal manipulation and chiropractic adjustments to correct alignment issues, relieve nerve pressure, and restore mobility.",
+    iconName: "chiropractic",
+  },
+  {
+    name: "Osteopathy",
+    description:
+      "Holistic osteopathic treatment focusing on the musculoskeletal system to improve overall body function, relieve pain, and promote natural healing.",
+    iconName: "osteopathy",
+  },
+  {
     name: "Back Pain Treatment",
     description:
       "Comprehensive treatment for acute and chronic back pain using manual therapy, exercises, and advanced modalities for lasting relief.",
     iconName: "spine",
+  },
+  {
+    name: "Knee Pain Management",
+    description:
+      "Specialized care for knee osteoarthritis, ligament injuries, and post-replacement rehab with targeted strengthening programs.",
+    iconName: "knee",
+  },
+  {
+    name: "Shoulder Disorders",
+    description:
+      "Treatment for frozen shoulder, rotator cuff injuries, and shoulder impingement using manual therapy and therapeutic exercises.",
+    iconName: "shoulder",
   },
   {
     name: "Neck Pain & Cervical",
@@ -48,18 +72,6 @@ const FALLBACK_SERVICES: Service[] = [
     description:
       "Structured post-operative physiotherapy protocols after orthopedic surgeries for optimal recovery and functional restoration.",
     iconName: "surgery",
-  },
-  {
-    name: "Knee Pain Management",
-    description:
-      "Specialized care for knee osteoarthritis, ligament injuries, and post-replacement rehab with targeted strengthening programs.",
-    iconName: "knee",
-  },
-  {
-    name: "Shoulder Disorders",
-    description:
-      "Treatment for frozen shoulder, rotator cuff injuries, and shoulder impingement using manual therapy and therapeutic exercises.",
-    iconName: "shoulder",
   },
   {
     name: "Sciatica & Disc Problems",

@@ -25,57 +25,59 @@
   :root {
     --radius: 0.75rem;
 
-    /* Medical Teal + Deep Navy Palette */
-    --background: 0.98 0.006 220;
-    --foreground: 0.18 0.025 240;
+    /* Soft Rose + White Palette */
+    --background: 0.99 0.002 15;
+    --foreground: 0.18 0.02 20;
 
     --card: 1 0 0;
-    --card-foreground: 0.18 0.025 240;
+    --card-foreground: 0.18 0.02 20;
 
     --popover: 1 0 0;
-    --popover-foreground: 0.18 0.025 240;
+    --popover-foreground: 0.18 0.02 20;
 
-    /* Primary: Deep Teal */
-    --primary: 0.42 0.13 200;
-    --primary-foreground: 0.98 0 0;
+    /* Primary: Soft Rose Red */
+    --primary: 0.62 0.18 15;
+    --primary-foreground: 1 0 0;
 
-    /* Secondary: Steel Blue */
-    --secondary: 0.92 0.02 220;
-    --secondary-foreground: 0.22 0.04 230;
+    /* Secondary: Very light rose tint */
+    --secondary: 0.96 0.012 15;
+    --secondary-foreground: 0.28 0.04 18;
 
-    --muted: 0.94 0.012 220;
-    --muted-foreground: 0.5 0.02 220;
+    --muted: 0.97 0.008 15;
+    --muted-foreground: 0.52 0.025 20;
 
-    /* Accent: Vibrant Teal */
-    --accent: 0.55 0.16 195;
-    --accent-foreground: 0.98 0 0;
+    /* Accent: Soft coral-rose */
+    --accent: 0.70 0.16 15;
+    --accent-foreground: 1 0 0;
 
     --destructive: 0.577 0.245 27.325;
     --destructive-foreground: 0.985 0 0;
 
-    --border: 0.88 0.015 220;
-    --input: 0.9 0.01 220;
-    --ring: 0.42 0.13 200;
+    --border: 0.92 0.014 15;
+    --input: 0.95 0.010 15;
+    --ring: 0.62 0.18 15;
 
-    --chart-1: 0.55 0.16 195;
-    --chart-2: 0.42 0.13 200;
-    --chart-3: 0.65 0.12 180;
-    --chart-4: 0.35 0.08 240;
-    --chart-5: 0.7 0.1 160;
+    --chart-1: 0.70 0.16 15;
+    --chart-2: 0.62 0.18 15;
+    --chart-3: 0.78 0.12 20;
+    --chart-4: 0.82 0.09 25;
+    --chart-5: 0.55 0.20 12;
 
-    --sidebar: 0.18 0.035 240;
-    --sidebar-foreground: 0.985 0 0;
-    --sidebar-primary: 0.55 0.16 195;
-    --sidebar-primary-foreground: 0.98 0 0;
-    --sidebar-accent: 0.25 0.04 235;
-    --sidebar-accent-foreground: 0.9 0 0;
-    --sidebar-border: 0.28 0.04 235;
-    --sidebar-ring: 0.55 0.16 195;
+    --sidebar: 0.98 0.006 15;
+    --sidebar-foreground: 0.18 0.02 20;
+    --sidebar-primary: 0.62 0.18 15;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.94 0.018 15;
+    --sidebar-accent-foreground: 0.28 0.04 18;
+    --sidebar-border: 0.90 0.016 15;
+    --sidebar-ring: 0.62 0.18 15;
 
-    /* Custom clinic tokens */
-    --clinic-teal: 0.55 0.16 195;
-    --clinic-navy: 0.18 0.035 240;
-    --clinic-teal-light: 0.88 0.06 195;
+    /* Custom clinic tokens — soft rose-red themed */
+    --clinic-rose: 0.62 0.18 15;
+    --clinic-rose-light: 0.95 0.025 15;
+    --clinic-rose-soft: 0.88 0.045 15;
+    --clinic-coral: 0.72 0.15 18;
+    --clinic-dark: 0.18 0.02 20;
     --clinic-gold: 0.78 0.15 75;
   }
 
@@ -97,23 +99,39 @@
    CUSTOM UTILITIES
    =========================== */
 @layer utilities {
-  .text-clinic-teal {
-    color: oklch(var(--clinic-teal));
+  .text-clinic-rose {
+    color: oklch(var(--clinic-rose));
   }
-  .bg-clinic-teal {
-    background-color: oklch(var(--clinic-teal));
+  .bg-clinic-rose {
+    background-color: oklch(var(--clinic-rose));
   }
-  .bg-clinic-navy {
-    background-color: oklch(var(--clinic-navy));
+  .bg-clinic-rose-light {
+    background-color: oklch(var(--clinic-rose-light));
   }
-  .bg-clinic-teal-light {
-    background-color: oklch(var(--clinic-teal-light));
+  .bg-clinic-rose-soft {
+    background-color: oklch(var(--clinic-rose-soft));
   }
   .text-clinic-gold {
     color: oklch(var(--clinic-gold));
   }
+  .border-clinic-rose {
+    border-color: oklch(var(--clinic-rose));
+  }
+  /* Legacy aliases so old class names still resolve */
+  .text-clinic-teal {
+    color: oklch(var(--clinic-rose));
+  }
+  .bg-clinic-teal {
+    background-color: oklch(var(--clinic-rose));
+  }
+  .bg-clinic-navy {
+    background-color: oklch(var(--clinic-dark));
+  }
+  .bg-clinic-teal-light {
+    background-color: oklch(var(--clinic-rose-light));
+  }
   .border-clinic-teal {
-    border-color: oklch(var(--clinic-teal));
+    border-color: oklch(var(--clinic-rose));
   }
 }
 
@@ -126,15 +144,22 @@
   }
   .section-eyebrow-line {
     @apply h-px w-8 rounded-full;
-    background: oklch(var(--clinic-teal));
+    background: oklch(var(--clinic-rose));
   }
   .section-eyebrow-label {
     @apply text-xs font-bold tracking-[0.2em] uppercase;
-    color: oklch(var(--clinic-teal));
+    color: oklch(var(--clinic-rose));
   }
   .section-heading {
     @apply font-display font-extrabold tracking-tight;
     letter-spacing: -0.02em;
+  }
+  .footer-nav-link {
+    color: oklch(0.45 0.03 20);
+    transition: color 0.2s ease;
+  }
+  .footer-nav-link:hover {
+    color: oklch(0.55 0.18 15);
   }
 }
 
@@ -147,6 +172,6 @@
   }
   .card-hover-glow:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px -8px oklch(0.42 0.13 200 / 0.2), 0 4px 12px oklch(0.42 0.13 200 / 0.08);
+    box-shadow: 0 12px 40px -8px oklch(0.62 0.18 15 / 0.18), 0 4px 12px oklch(0.62 0.18 15 / 0.06);
   }
 }
