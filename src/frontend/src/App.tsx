@@ -7,9 +7,11 @@ import ContactSection from "./components/ContactSection";
 import FAQSection from "./components/FAQSection";
 import FloatingShareButton from "./components/FloatingShareButton";
 import Footer from "./components/Footer";
+import GoogleReviewsSection from "./components/GoogleReviewsSection";
 import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
 import PageLoader from "./components/PageLoader";
+import PrePostResultsSection from "./components/PrePostResultsSection";
 import ServicesSection from "./components/ServicesSection";
 import TestimonialsSection from "./components/TestimonialsSection";
 import WhatsAppChatButton from "./components/WhatsAppChatButton";
@@ -28,6 +30,8 @@ export default function App() {
         <ServicesSection />
         <WhyChooseUs />
         <TestimonialsSection />
+        <PrePostResultsSection />
+        <GoogleReviewsSection />
         <AppointmentSection />
         <BusinessHoursSection />
         <FAQSection />

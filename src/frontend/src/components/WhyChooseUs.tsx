@@ -7,6 +7,7 @@ import {
   UserCheck,
 } from "lucide-react";
 import { motion } from "motion/react";
+// motion is available for use on anchor/button wrappers
 
 const reasons = [
   {
@@ -64,10 +65,10 @@ export default function WhyChooseUs() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-14"
         >
           <div className="section-eyebrow">
@@ -99,6 +100,10 @@ export default function WhyChooseUs() {
                   duration: 0.55,
                   delay: (index % 3) * 0.1,
                   ease: "easeOut",
+                }}
+                whileHover={{
+                  y: -4,
+                  boxShadow: "0 16px 40px oklch(0.62 0.18 15 / 0.15)",
                 }}
                 className="group card-hover-glow"
               >
@@ -175,19 +180,23 @@ export default function WhyChooseUs() {
               pain-free, active life.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a
+              <motion.a
                 href="tel:8401282296"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 hover:opacity-90"
                 style={{ background: "oklch(0.62 0.18 15)", color: "white" }}
               >
                 📞 84012 82296
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="tel:6351002510"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 bg-white/10 hover:bg-white/20 border border-white/20"
               >
                 📞 63510 02510
-              </a>
+              </motion.a>
             </div>
           </div>
         </motion.div>

@@ -175,3 +175,56 @@
     box-shadow: 0 12px 40px -8px oklch(0.62 0.18 15 / 0.18), 0 4px 12px oklch(0.62 0.18 15 / 0.06);
   }
 }
+
+/* ===========================
+   SMOOTH SECTION TRANSITIONS
+   =========================== */
+@layer utilities {
+  /* Smooth scroll with offset for fixed navbar */
+  [id] {
+    scroll-margin-top: 80px;
+  }
+
+  /* Selection color */
+  ::selection {
+    background: oklch(0.62 0.18 15 / 0.20);
+    color: oklch(0.25 0.06 15);
+  }
+
+  /* Smooth focus rings */
+  :focus-visible {
+    outline: 2px solid oklch(0.62 0.18 15 / 0.70);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  /* Image loading shimmer */
+  .img-skeleton {
+    background: linear-gradient(
+      90deg,
+      oklch(0.95 0.008 15) 0%,
+      oklch(0.98 0.004 15) 50%,
+      oklch(0.95 0.008 15) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Floating elements subtle shadow */
+  .floating-shadow {
+    box-shadow: 0 8px 32px oklch(0.40 0.14 15 / 0.20), 0 2px 8px oklch(0 0 0 / 0.06);
+  }
+
+  /* Gradient text helper */
+  .text-gradient-red {
+    background: linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

@@ -9,9 +9,49 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Calendar, CheckCircle } from "lucide-react";
+import { Calendar, CheckCircle, Clock } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+
+const TIME_SLOTS = [
+  {
+    group: "Morning",
+    slots: [
+      "9:00 AM",
+      "9:30 AM",
+      "10:00 AM",
+      "10:30 AM",
+      "11:00 AM",
+      "11:30 AM",
+    ],
+  },
+  {
+    group: "Afternoon",
+    slots: [
+      "12:00 PM",
+      "12:30 PM",
+      "1:00 PM",
+      "1:30 PM",
+      "2:00 PM",
+      "2:30 PM",
+      "3:00 PM",
+      "3:30 PM",
+    ],
+  },
+  {
+    group: "Evening",
+    slots: [
+      "4:00 PM",
+      "4:30 PM",
+      "5:00 PM",
+      "5:30 PM",
+      "6:00 PM",
+      "6:30 PM",
+      "7:00 PM",
+      "7:30 PM",
+    ],
+  },
+];
 
 const SERVICES = [
   "Chiropractic",
@@ -40,6 +80,7 @@ export default function AppointmentSection() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
+  const [timeSlot, setTimeSlot] = useState("");
   const [treatment, setTreatment] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -47,7 +88,7 @@ export default function AppointmentSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const text = `New Appointment Request:\nName: ${name}\nPhone: ${phone}\nDate: ${date}\nTreatment: ${treatment}\nMessage: ${message}`;
+    const text = `New Appointment Request:\nName: ${name}\nPhone: ${phone}\nDate: ${date}\nTime: ${timeSlot}\nTreatment: ${treatment}\nMessage: ${message}`;
     const waUrl = `https://wa.me/918401282296?text=${encodeURIComponent(text)}`;
     window.open(waUrl, "_blank", "noopener,noreferrer");
 
@@ -58,6 +99,7 @@ export default function AppointmentSection() {
     setName("");
     setPhone("");
     setDate("");
+    setTimeSlot("");
     setTreatment("");
     setMessage("");
     setSubmitted(false);
@@ -82,10 +124,10 @@ export default function AppointmentSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-12"
         >
           <div className="section-eyebrow">
@@ -208,33 +250,170 @@ export default function AppointmentSection() {
                   />
                 </div>
 
-                {/* Preferred Date */}
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="appt-date"
-                    className="text-sm font-semibold"
-                    style={{ color: "oklch(0.35 0.04 18)" }}
-                  >
-                    Preferred Date{" "}
-                    <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
-                  </Label>
-                  <Input
-                    id="appt-date"
-                    data-ocid="appointment.date_input"
-                    type="date"
-                    min={today}
-                    required
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className="h-11 text-sm focus-visible:ring-1"
-                    style={
-                      {
-                        borderColor: "oklch(0.88 0.025 15)",
-                        "--tw-ring-color": "oklch(0.62 0.18 15)",
-                      } as React.CSSProperties
-                    }
-                  />
+                {/* Date + Time row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Preferred Date */}
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="appt-date"
+                      className="text-sm font-semibold"
+                      style={{ color: "oklch(0.35 0.04 18)" }}
+                    >
+                      Preferred Date{" "}
+                      <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
+                    </Label>
+                    <Input
+                      id="appt-date"
+                      data-ocid="appointment.date_input"
+                      type="date"
+                      min={today}
+                      required
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      className="h-11 text-sm focus-visible:ring-1"
+                      style={
+                        {
+                          borderColor: "oklch(0.88 0.025 15)",
+                          "--tw-ring-color": "oklch(0.62 0.18 15)",
+                        } as React.CSSProperties
+                      }
+                    />
+                  </div>
+
+                  {/* Preferred Time (dropdown) */}
+                  <div className="space-y-2">
+                    <Label
+                      className="text-sm font-semibold flex items-center gap-1.5"
+                      style={{ color: "oklch(0.35 0.04 18)" }}
+                    >
+                      <Clock
+                        className="w-3.5 h-3.5"
+                        style={{ color: "oklch(0.55 0.18 15)" }}
+                      />
+                      Preferred Time{" "}
+                      <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
+                    </Label>
+                    <Select
+                      required
+                      value={timeSlot}
+                      onValueChange={setTimeSlot}
+                    >
+                      <SelectTrigger
+                        data-ocid="appointment.time_select"
+                        className="h-11 text-sm focus:ring-1"
+                        style={
+                          {
+                            borderColor: "oklch(0.88 0.025 15)",
+                            "--tw-ring-color": "oklch(0.62 0.18 15)",
+                          } as React.CSSProperties
+                        }
+                      >
+                        <SelectValue placeholder="Select time" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-64">
+                        {TIME_SLOTS.map(({ group, slots }) => (
+                          <div key={group}>
+                            <div
+                              className="px-2 py-1.5 text-xs font-bold uppercase tracking-widest"
+                              style={{ color: "oklch(0.55 0.18 15)" }}
+                            >
+                              {group}
+                            </div>
+                            {slots.map((slot) => (
+                              <SelectItem key={slot} value={slot}>
+                                {slot}
+                              </SelectItem>
+                            ))}
+                          </div>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
+
+                {/* Visual time slot quick-picker (shown after date is selected) */}
+                {date && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden rounded-xl border"
+                    style={{
+                      borderColor: "oklch(0.90 0.020 15)",
+                      background: "oklch(0.985 0.006 15)",
+                    }}
+                  >
+                    <div
+                      className="px-4 py-2.5 border-b flex items-center gap-2"
+                      style={{
+                        borderColor: "oklch(0.92 0.016 15)",
+                        background: "oklch(0.97 0.012 15)",
+                      }}
+                    >
+                      <Clock
+                        className="w-3.5 h-3.5"
+                        style={{ color: "oklch(0.55 0.18 15)" }}
+                      />
+                      <p
+                        className="text-xs font-semibold"
+                        style={{ color: "oklch(0.40 0.04 18)" }}
+                      >
+                        Quick-pick a time slot
+                      </p>
+                      {timeSlot && (
+                        <span
+                          className="ml-auto text-xs font-bold px-2 py-0.5 rounded-full"
+                          style={{
+                            background: "oklch(0.60 0.18 12)",
+                            color: "white",
+                          }}
+                        >
+                          {timeSlot}
+                        </span>
+                      )}
+                    </div>
+                    <div className="p-4 space-y-4">
+                      {TIME_SLOTS.map(({ group, slots }) => (
+                        <div key={group}>
+                          <p
+                            className="text-xs font-bold mb-2 uppercase tracking-wider"
+                            style={{ color: "oklch(0.62 0.18 15)" }}
+                          >
+                            {group}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {slots.map((slot) => (
+                              <button
+                                key={slot}
+                                type="button"
+                                onClick={() => setTimeSlot(slot)}
+                                className="px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-150 hover:scale-105"
+                                style={
+                                  timeSlot === slot
+                                    ? {
+                                        background:
+                                          "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
+                                        color: "white",
+                                        borderColor: "transparent",
+                                        boxShadow:
+                                          "0 2px 8px oklch(0.62 0.18 15 / 0.30)",
+                                      }
+                                    : {
+                                        background: "oklch(0.99 0.004 15)",
+                                        color: "oklch(0.40 0.04 18)",
+                                        borderColor: "oklch(0.88 0.025 15)",
+                                      }
+                                }
+                              >
+                                {slot}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
 
                 {/* Treatment Needed */}
                 <div className="space-y-2">
@@ -330,10 +509,19 @@ export default function AppointmentSection() {
                 data-ocid="appointment.success_state"
                 initial={{ opacity: 0, scale: 0.95, y: 12 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="flex flex-col items-center text-center py-8 gap-5"
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="flex flex-col items-center text-center py-6 gap-5"
               >
-                <div
+                {/* Green checkmark */}
+                <motion.div
+                  initial={{ scale: 0, rotate: -15 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 18,
+                    delay: 0.1,
+                  }}
                   className="w-20 h-20 rounded-full flex items-center justify-center"
                   style={{ background: "oklch(0.94 0.08 145)" }}
                 >
@@ -341,30 +529,101 @@ export default function AppointmentSection() {
                     className="w-10 h-10"
                     style={{ color: "oklch(0.55 0.20 145)" }}
                   />
-                </div>
+                </motion.div>
+
+                {/* Heading */}
                 <div>
                   <h3
                     className="font-display text-2xl font-bold mb-2"
                     style={{ color: "oklch(0.30 0.04 18)" }}
                   >
-                    Appointment Requested!
+                    Appointment Request Received!
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-                    Your appointment request has been sent via WhatsApp. We'll
-                    confirm your slot shortly.
+                  <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
+                    Your appointment request has been received. We will contact
+                    you within{" "}
+                    <strong style={{ color: "oklch(0.45 0.18 15)" }}>
+                      12 hours
+                    </strong>{" "}
+                    to confirm your slot.
                   </p>
                 </div>
-                <div
-                  className="w-full rounded-xl px-4 py-3 text-sm"
+
+                {/* Booking details card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25, duration: 0.35 }}
+                  className="w-full rounded-xl overflow-hidden text-left"
                   style={{
                     background: "oklch(0.97 0.012 145)",
                     border: "1px solid oklch(0.88 0.06 145)",
-                    color: "oklch(0.38 0.14 145)",
                   }}
                 >
-                  <strong>Name:</strong> {name} &nbsp;·&nbsp;{" "}
-                  <strong>Date:</strong> {date}
-                </div>
+                  <div
+                    className="px-4 py-2 text-xs font-bold uppercase tracking-widest"
+                    style={{
+                      background: "oklch(0.92 0.06 145)",
+                      color: "oklch(0.40 0.14 145)",
+                    }}
+                  >
+                    Your Booking Details
+                  </div>
+                  <div className="px-4 py-4 space-y-2.5">
+                    {[
+                      { label: "Full Name", value: name },
+                      { label: "Phone", value: phone },
+                      { label: "Preferred Date", value: date },
+                      { label: "Time Slot", value: timeSlot },
+                      { label: "Treatment", value: treatment },
+                    ].map(({ label, value }) => (
+                      <div
+                        key={label}
+                        className="flex items-start justify-between gap-4 text-sm"
+                      >
+                        <span
+                          className="font-semibold flex-shrink-0"
+                          style={{ color: "oklch(0.40 0.10 145)" }}
+                        >
+                          {label}
+                        </span>
+                        <span
+                          className="text-right leading-snug"
+                          style={{ color: "oklch(0.28 0.06 145)" }}
+                        >
+                          {value || "—"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Clinic info row */}
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.38, duration: 0.35 }}
+                  className="w-full rounded-xl px-4 py-3 text-center space-y-1.5"
+                  style={{
+                    background: "oklch(0.97 0.008 20)",
+                    border: "1px solid oklch(0.90 0.012 20)",
+                  }}
+                >
+                  <p
+                    className="text-xs font-semibold"
+                    style={{ color: "oklch(0.45 0.03 20)" }}
+                  >
+                    📞 8401282296 &nbsp;|&nbsp; 6351002510
+                  </p>
+                  <p
+                    className="text-xs leading-relaxed"
+                    style={{ color: "oklch(0.55 0.02 20)" }}
+                  >
+                    Mez floor, Swastik Chambers, Athugar Street, Nanpura
+                    Timalyawad, Surat
+                  </p>
+                </motion.div>
+
                 <Button
                   type="button"
                   data-ocid="appointment.reset_button"

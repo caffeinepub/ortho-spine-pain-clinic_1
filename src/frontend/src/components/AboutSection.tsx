@@ -30,9 +30,11 @@ function AboutStats() {
 
   return (
     <div className="grid grid-cols-3 gap-4 pt-2">
-      <div
+      <motion.div
         ref={patientsRef}
-        className="text-center p-4 rounded-xl"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        className="text-center p-4 rounded-xl cursor-default"
         style={{
           background: "oklch(0.98 0.008 15)",
           border: "1px solid oklch(0.90 0.016 15)",
@@ -47,10 +49,12 @@ function AboutStats() {
         <div className="text-xs text-muted-foreground mt-1 font-medium">
           Patients Healed
         </div>
-      </div>
-      <div
+      </motion.div>
+      <motion.div
         ref={specsRef}
-        className="text-center p-4 rounded-xl"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        className="text-center p-4 rounded-xl cursor-default"
         style={{
           background: "oklch(0.98 0.008 15)",
           border: "1px solid oklch(0.90 0.016 15)",
@@ -65,10 +69,12 @@ function AboutStats() {
         <div className="text-xs text-muted-foreground mt-1 font-medium">
           Specializations
         </div>
-      </div>
-      <div
+      </motion.div>
+      <motion.div
         ref={dedRef}
-        className="text-center p-4 rounded-xl"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        className="text-center p-4 rounded-xl cursor-default"
         style={{
           background: "oklch(0.98 0.008 15)",
           border: "1px solid oklch(0.90 0.016 15)",
@@ -83,7 +89,7 @@ function AboutStats() {
         <div className="text-xs text-muted-foreground mt-1 font-medium">
           Dedication
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

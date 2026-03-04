@@ -8,6 +8,16 @@ import {
   Phone,
 } from "lucide-react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
+
+const contactItemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.08, ease: "easeOut" },
+  }),
+};
 
 export default function ContactSection() {
   const { data: clinic } = useClinicInfo();
@@ -38,10 +48,10 @@ export default function ContactSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-14"
         >
           <div className="section-eyebrow">
@@ -62,14 +72,15 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left: Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
             className="space-y-6"
           >
             {/* Appointment CTA Card */}
-            <div
+            <motion.div
+              custom={0}
+              variants={contactItemVariants}
               className="p-6 rounded-2xl text-white relative overflow-hidden"
               style={{
                 background:
@@ -107,10 +118,12 @@ export default function ContactSection() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Address */}
-            <div
+            <motion.div
+              custom={1}
+              variants={contactItemVariants}
               className="p-6 rounded-2xl bg-white border border-border space-y-4"
               style={{ boxShadow: "0 4px 24px -4px rgba(120,0,0,0.08)" }}
             >
@@ -200,10 +213,14 @@ export default function ContactSection() {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Quick Call Buttons */}
-            <div className="grid grid-cols-2 gap-3">
+            <motion.div
+              custom={2}
+              variants={contactItemVariants}
+              className="grid grid-cols-2 gap-3"
+            >
               {phones.map((phone) => (
                 <Button
                   key={phone}
@@ -220,7 +237,7 @@ export default function ContactSection() {
                   </a>
                 </Button>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Right: Google Maps */}

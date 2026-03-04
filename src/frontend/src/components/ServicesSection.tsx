@@ -106,6 +106,10 @@ function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: (index % 4) * 0.07, ease: "easeOut" }}
+      whileHover={{
+        y: -4,
+        boxShadow: "0 16px 40px oklch(0.62 0.18 15 / 0.15)",
+      }}
       className="card-hover-glow group cursor-pointer w-full text-left"
       onClick={() => onSelect(service)}
       aria-label={`Learn more about ${service.name}`}
@@ -246,10 +250,10 @@ export default function ServicesSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
           <div className="section-eyebrow">

@@ -1,5 +1,6 @@
 import { useClinicInfo } from "@/hooks/useQueries";
 import { Heart, Instagram, MapPin, Phone } from "lucide-react";
+import { motion } from "motion/react";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -47,16 +48,39 @@ export default function Footer() {
         }}
       />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 relative z-10"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
           {/* Brand */}
           <div className="lg:col-span-2 space-y-4">
-            <img
-              src="/assets/uploads/IMG-20250205-WA0003-1-1-1.jpg"
-              alt="ORTHO-SPINE PAIN CLINIC"
-              className="h-16 w-auto object-contain rounded-md"
-              loading="lazy"
-            />
+            <motion.div
+              className="inline-block rounded-xl p-1.5 bg-white/80"
+              animate={{
+                boxShadow: [
+                  "0 4px 16px rgba(220, 38, 38, 0.15), 0 0 0 2px rgba(220, 38, 38, 0.12)",
+                  "0 6px 28px rgba(220, 38, 38, 0.30), 0 0 0 3px rgba(220, 38, 38, 0.20)",
+                  "0 4px 16px rgba(220, 38, 38, 0.15), 0 0 0 2px rgba(220, 38, 38, 0.12)",
+                ],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+              whileHover={{ scale: 1.04 }}
+            >
+              <img
+                src="/assets/uploads/IMG-20250205-WA0003-1-1-1.jpg"
+                alt="ORTHO-SPINE PAIN CLINIC"
+                className="h-20 w-auto object-contain rounded-lg"
+                loading="lazy"
+              />
+            </motion.div>
             <p
               className="text-sm leading-relaxed max-w-xs"
               style={{ color: "oklch(0.45 0.03 20)" }}
@@ -186,7 +210,7 @@ export default function Footer() {
             </a>
           </p>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 }

@@ -217,10 +217,16 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <a href="tel:8401282296">
+          <motion.a
+            href="tel:8401282296"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="w-full sm:w-auto"
+          >
             <Button
               size="lg"
-              className="w-full sm:w-auto font-semibold text-base px-8 py-6 text-white"
+              className="w-full font-semibold text-base px-8 py-6 text-white"
               style={{
                 backgroundColor: "oklch(0.62 0.18 15)",
                 boxShadow: "0 4px 20px -2px oklch(62% 0.18 15 / 0.40)",
@@ -229,16 +235,23 @@ export default function HeroSection() {
               <Phone className="w-5 h-5 mr-2" />
               Call Now
             </Button>
-          </a>
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={() => scrollTo("#contact")}
-            className="w-full sm:w-auto font-semibold text-base px-8 py-6 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:text-white hover:border-white/50"
+          </motion.a>
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="w-full sm:w-auto"
           >
-            <Calendar className="w-5 h-5 mr-2" />
-            Book Appointment
-          </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => scrollTo("#contact")}
+              className="w-full font-semibold text-base px-8 py-6 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:text-white hover:border-white/50"
+            >
+              <Calendar className="w-5 h-5 mr-2" />
+              Book Appointment
+            </Button>
+          </motion.div>
 
           {/* Share Button with Popover */}
           <Popover open={shareOpen} onOpenChange={setShareOpen}>

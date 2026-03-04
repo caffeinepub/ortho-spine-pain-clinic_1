@@ -5,6 +5,23 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
+
+const faqContainerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.06 },
+  },
+};
+
+const faqItemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: "easeOut" },
+  },
+};
 
 const faqs = [
   {
@@ -85,10 +102,10 @@ export default function FAQSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-14"
         >
           <div className="section-eyebrow">
@@ -108,50 +125,51 @@ export default function FAQSection() {
 
         {/* Accordion */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          variants={faqContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
         >
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
-              <AccordionItem
-                key={faq.question}
-                value={`faq-${index + 1}`}
-                data-ocid={`faq.item.${index + 1}`}
-                className="rounded-xl overflow-hidden border px-0"
-                style={{
-                  borderColor: "oklch(0.90 0.016 15)",
-                  boxShadow: "0 2px 8px oklch(0.62 0.18 15 / 0.04)",
-                }}
-              >
-                <AccordionTrigger
-                  className="px-6 py-5 text-sm sm:text-base font-semibold text-left hover:no-underline transition-colors group"
-                  style={{ color: "oklch(0.28 0.04 18)" }}
+              <motion.div key={faq.question} variants={faqItemVariants}>
+                <AccordionItem
+                  value={`faq-${index + 1}`}
+                  data-ocid={`faq.item.${index + 1}`}
+                  className="rounded-xl overflow-hidden border px-0"
+                  style={{
+                    borderColor: "oklch(0.90 0.016 15)",
+                    boxShadow: "0 2px 8px oklch(0.62 0.18 15 / 0.04)",
+                  }}
                 >
-                  <span className="flex items-start gap-3 text-left">
-                    <span
-                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white mt-0.5"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
-                      }}
-                      aria-hidden="true"
-                    >
-                      {index + 1}
-                    </span>
-                    <span className="leading-snug">{faq.question}</span>
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-5">
-                  <div
-                    className="ml-9 text-sm leading-relaxed"
-                    style={{ color: "oklch(0.45 0.025 20)" }}
+                  <AccordionTrigger
+                    className="px-6 py-5 text-sm sm:text-base font-semibold text-left hover:no-underline transition-colors group"
+                    style={{ color: "oklch(0.28 0.04 18)" }}
                   >
-                    {faq.answer}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
+                    <span className="flex items-start gap-3 text-left">
+                      <span
+                        className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white mt-0.5"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
+                        }}
+                        aria-hidden="true"
+                      >
+                        {index + 1}
+                      </span>
+                      <span className="leading-snug">{faq.question}</span>
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-5">
+                    <div
+                      className="ml-9 text-sm leading-relaxed"
+                      style={{ color: "oklch(0.45 0.025 20)" }}
+                    >
+                      {faq.answer}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
         </motion.div>

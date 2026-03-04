@@ -14,10 +14,10 @@ export default function BusinessHoursSection() {
         <div className="max-w-3xl mx-auto">
           {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20, filter: "blur(4px)" }}
+            whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7 }}
             className="text-center mb-10"
           >
             <div className="section-eyebrow">
@@ -68,10 +68,10 @@ export default function BusinessHoursSection() {
                 return (
                   <motion.div
                     key={hour.day}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -16 : 16 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    transition={{ duration: 0.45, delay: index * 0.05 }}
                     className={`flex items-center justify-between px-6 py-4 transition-colors ${
                       isToday
                         ? "bg-clinic-teal-light/30"
