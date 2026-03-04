@@ -7,13 +7,14 @@ import {
   CreditCard,
   IndianRupee,
   Info,
-  Monitor,
+  QrCode,
   Smartphone,
   Video,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { SiGooglemeet, SiZoom } from "react-icons/si";
+import upiQrCode from "/assets/uploads/WA_1772648312707-1.jpeg";
 
 const PLATFORMS = [
   {
@@ -51,13 +52,21 @@ const PLATFORMS = [
 
 const today = new Date().toISOString().split("T")[0];
 
+const TIME_SLOTS = [
+  { group: "Morning", slots: ["9:00 AM", "10:00 AM", "11:00 AM"] },
+  { group: "Afternoon", slots: ["12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM"] },
+  { group: "Evening", slots: ["4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM"] },
+];
+
 export default function VideoConsultationSection() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
+  const [timeSlot, setTimeSlot] = useState("");
   const [platform, setPlatform] = useState("");
   const [concern, setConcern] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [showQr, setShowQr] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,6 +77,7 @@ export default function VideoConsultationSection() {
       `Name: ${name}`,
       `Phone: ${phone}`,
       `Preferred Date: ${date}`,
+      `Preferred Time: ${timeSlot || "Flexible"}`,
       `Platform: ${platform}`,
       `Concern: ${concern || "Not specified"}`,
       "Consultation Fee: ₹700",
@@ -83,9 +93,11 @@ export default function VideoConsultationSection() {
     setName("");
     setPhone("");
     setDate("");
+    setTimeSlot("");
     setPlatform("");
     setConcern("");
     setSubmitted(false);
+    setShowQr(false);
   };
 
   return (
@@ -287,27 +299,91 @@ export default function VideoConsultationSection() {
                         } as React.CSSProperties
                       }
                     />
-                    {/* Timing note */}
-                    <div
-                      className="flex items-start gap-2 rounded-lg px-3 py-2.5 mt-1"
-                      style={{
-                        background: "oklch(0.96 0.04 220)",
-                        border: "1px solid oklch(0.88 0.06 220)",
-                      }}
-                    >
-                      <Info
-                        className="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
-                        style={{ color: "oklch(0.52 0.16 230)" }}
-                      />
-                      <p
-                        className="text-xs leading-relaxed"
-                        style={{ color: "oklch(0.38 0.10 230)" }}
-                      >
-                        Dr. Arbaz will confirm your appointment time within{" "}
-                        <strong>12 hours</strong>. No need to pick a time slot.
-                      </p>
-                    </div>
                   </div>
+
+                  {/* Preferred Time Slot */}
+                  {date && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-3"
+                    >
+                      <Label
+                        className="text-sm font-semibold"
+                        style={{ color: "oklch(0.35 0.04 18)" }}
+                      >
+                        Preferred Time Slot{" "}
+                        <span className="text-muted-foreground font-normal text-xs">
+                          (optional)
+                        </span>
+                      </Label>
+                      {TIME_SLOTS.map((group) => (
+                        <div key={group.group}>
+                          <p
+                            className="text-xs font-bold uppercase tracking-wider mb-2"
+                            style={{ color: "oklch(0.55 0.08 18)" }}
+                          >
+                            {group.group}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {group.slots.map((slot) => {
+                              const isActive = timeSlot === slot;
+                              return (
+                                <button
+                                  key={slot}
+                                  type="button"
+                                  onClick={() =>
+                                    setTimeSlot(isActive ? "" : slot)
+                                  }
+                                  data-ocid={`video_consult.time_slot.${slot.replace(/[: ]/g, "_")}`}
+                                  className="px-3 py-1.5 rounded-lg text-xs font-semibold border-2 transition-all duration-200"
+                                  style={
+                                    isActive
+                                      ? {
+                                          background:
+                                            "linear-gradient(135deg, oklch(0.55 0.18 15), oklch(0.68 0.16 18))",
+                                          borderColor: "transparent",
+                                          color: "white",
+                                          boxShadow:
+                                            "0 2px 10px oklch(0.62 0.18 15 / 0.30)",
+                                          transform: "translateY(-1px)",
+                                        }
+                                      : {
+                                          background: "oklch(0.97 0.010 18)",
+                                          borderColor: "oklch(0.88 0.025 15)",
+                                          color: "oklch(0.40 0.06 18)",
+                                        }
+                                  }
+                                >
+                                  {slot}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                      <div
+                        className="flex items-start gap-2 rounded-lg px-3 py-2.5"
+                        style={{
+                          background: "oklch(0.96 0.04 220)",
+                          border: "1px solid oklch(0.88 0.06 220)",
+                        }}
+                      >
+                        <Info
+                          className="w-3.5 h-3.5 flex-shrink-0 mt-0.5"
+                          style={{ color: "oklch(0.52 0.16 230)" }}
+                        />
+                        <p
+                          className="text-xs leading-relaxed"
+                          style={{ color: "oklch(0.38 0.10 230)" }}
+                        >
+                          Dr. Arbaz will confirm the final timing within{" "}
+                          <strong>12 hours</strong>.
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
 
                   {/* Platform selector */}
                   <div className="space-y-3">
@@ -447,36 +523,87 @@ export default function VideoConsultationSection() {
 
                   {/* Payment info pre-submit */}
                   <div
-                    className="rounded-xl px-4 py-4 flex items-start gap-3"
+                    className="rounded-xl overflow-hidden"
                     style={{
                       background: "oklch(0.97 0.012 50)",
                       border: "1px solid oklch(0.88 0.04 50)",
                     }}
                   >
-                    <CreditCard
-                      className="w-4 h-4 flex-shrink-0 mt-0.5"
-                      style={{ color: "oklch(0.55 0.14 50)" }}
-                    />
-                    <div className="text-xs leading-relaxed space-y-0.5">
-                      <p
-                        className="font-bold text-sm"
-                        style={{ color: "oklch(0.35 0.08 50)" }}
-                      >
-                        Payment: ₹700 at the time of appointment
-                      </p>
-                      <p style={{ color: "oklch(0.50 0.06 50)" }}>
-                        UPI ID:{" "}
-                        <span
-                          className="font-semibold"
-                          style={{ color: "oklch(0.40 0.10 50)" }}
+                    <div className="px-4 py-4 flex items-start gap-3">
+                      <CreditCard
+                        className="w-4 h-4 flex-shrink-0 mt-0.5"
+                        style={{ color: "oklch(0.55 0.14 50)" }}
+                      />
+                      <div className="text-xs leading-relaxed space-y-1 flex-1">
+                        <p
+                          className="font-bold text-sm"
+                          style={{ color: "oklch(0.35 0.08 50)" }}
                         >
-                          shaikh.arbaz581@okhdfcbank
-                        </span>
-                      </p>
-                      <p style={{ color: "oklch(0.55 0.04 50)" }}>
-                        Make payment only after Dr. confirms the timing.
-                      </p>
+                          Payment: ₹700 at the time of appointment
+                        </p>
+                        <p style={{ color: "oklch(0.50 0.06 50)" }}>
+                          UPI ID:{" "}
+                          <a
+                            href="upi://pay?pa=shaikh.arbaz581@okhdfcbank&pn=Dr%20Arbaz%20Shaikh&am=700&cu=INR"
+                            className="font-bold underline underline-offset-2 transition-opacity hover:opacity-80 active:opacity-60"
+                            style={{ color: "oklch(0.38 0.16 50)" }}
+                          >
+                            shaikh.arbaz581@okhdfcbank
+                          </a>
+                        </p>
+                        <p style={{ color: "oklch(0.55 0.04 50)" }}>
+                          Make payment only after Dr. confirms the timing.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setShowQr((v) => !v)}
+                          className="flex items-center gap-1.5 mt-2 text-xs font-semibold transition-opacity hover:opacity-80"
+                          style={{ color: "oklch(0.45 0.14 50)" }}
+                        >
+                          <QrCode className="w-3.5 h-3.5" />
+                          {showQr ? "Hide QR Code" : "Show UPI QR Code"}
+                        </button>
+                      </div>
                     </div>
+                    <AnimatePresence>
+                      {showQr && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
+                        >
+                          <div
+                            className="px-4 pb-4 flex flex-col items-center gap-2"
+                            style={{
+                              borderTop: "1px solid oklch(0.88 0.04 50)",
+                            }}
+                          >
+                            <p
+                              className="text-xs font-semibold pt-3"
+                              style={{ color: "oklch(0.45 0.08 50)" }}
+                            >
+                              Scan to Pay via UPI
+                            </p>
+                            <img
+                              src={upiQrCode}
+                              alt="UPI QR Code - Dr. Arbaz Shaikh"
+                              className="w-52 h-52 rounded-xl object-cover"
+                              style={{
+                                border: "2px solid oklch(0.85 0.06 50)",
+                              }}
+                            />
+                            <p
+                              className="text-xs text-center"
+                              style={{ color: "oklch(0.55 0.04 50)" }}
+                            >
+                              shaikh.arbaz581@okhdfcbank
+                            </p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
                   {/* Submit */}
@@ -573,6 +700,10 @@ export default function VideoConsultationSection() {
                         { label: "Full Name", value: name },
                         { label: "Phone", value: phone },
                         { label: "Preferred Date", value: date },
+                        {
+                          label: "Preferred Time",
+                          value: timeSlot || "Flexible",
+                        },
                         { label: "Platform", value: platform },
                       ].map(({ label, value }) => (
                         <div
@@ -657,12 +788,28 @@ export default function VideoConsultationSection() {
                         >
                           UPI ID
                         </p>
-                        <p
-                          className="font-bold text-base tracking-wide"
+                        <a
+                          href="upi://pay?pa=shaikh.arbaz581@okhdfcbank&pn=Dr%20Arbaz%20Shaikh&am=700&cu=INR"
+                          className="font-bold text-base tracking-wide underline underline-offset-2 hover:opacity-80 active:opacity-60 transition-opacity"
                           style={{ color: "oklch(0.32 0.14 50)" }}
                         >
                           shaikh.arbaz581@okhdfcbank
+                        </a>
+                      </div>
+                      {/* QR Code in success state */}
+                      <div className="flex flex-col items-center gap-2 pt-2">
+                        <p
+                          className="text-xs font-semibold"
+                          style={{ color: "oklch(0.45 0.08 50)" }}
+                        >
+                          Or scan to pay
                         </p>
+                        <img
+                          src={upiQrCode}
+                          alt="UPI QR Code"
+                          className="w-44 h-44 rounded-xl object-cover"
+                          style={{ border: "2px solid oklch(0.85 0.06 50)" }}
+                        />
                       </div>
                       <div
                         className="mt-2 flex items-start gap-2 rounded-lg px-3 py-2.5"
