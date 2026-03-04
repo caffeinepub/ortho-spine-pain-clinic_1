@@ -9,6 +9,7 @@ const credentials = [
   { icon: GraduationCap, label: "B.P.T. Graduate" },
   { icon: Award, label: "Certified Manual Therapist" },
   { icon: Users, label: "Sports Rehab Specialist" },
+  { icon: Award, label: "Pain Management Specialist" },
 ];
 
 const containerVariants: Variants = {
@@ -165,7 +166,7 @@ export default function AboutSection() {
                   className="font-display text-3xl font-extrabold"
                   style={{ color: "oklch(0.55 0.18 15)" }}
                 >
-                  {Number(clinic?.experienceYears ?? 6)}+
+                  {Number(clinic?.experienceYears ?? 8)}+
                 </div>
                 <div className="text-xs text-muted-foreground font-medium">
                   Years Expertise
@@ -207,7 +208,7 @@ export default function AboutSection() {
 
             <p className="text-muted-foreground leading-relaxed text-base">
               {clinic?.about ||
-                "Dr. Arbaz Shaikh is a highly qualified and experienced Consultant Physiotherapist dedicated to providing comprehensive physiotherapy care. With over 6 years of clinical experience, he specializes in diagnosing and treating musculoskeletal disorders, spine conditions, sports injuries, and neurological conditions."}
+                "Dr. Arbaz Shaikh is a highly qualified and experienced Consultant Physiotherapist dedicated to providing comprehensive physiotherapy care. With over 8 years of clinical experience, he specializes in diagnosing and treating musculoskeletal disorders, spine conditions, sports injuries, and neurological conditions."}
             </p>
 
             {/* Credentials */}

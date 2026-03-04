@@ -14,7 +14,7 @@ const reasons = [
     icon: UserCheck,
     title: "Expert Specialist Doctor",
     description:
-      "Dr. Arbaz Shaikh brings 6+ years of specialized clinical experience in orthopedic and neurological physiotherapy, ensuring accurate diagnosis and effective treatment.",
+      "Dr. Arbaz Shaikh brings 8+ years of specialized clinical experience in orthopedic and neurological physiotherapy, ensuring accurate diagnosis and effective treatment.",
   },
   {
     icon: Microscope,

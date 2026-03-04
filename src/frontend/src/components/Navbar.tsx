@@ -11,6 +11,7 @@ import {
   Phone,
   Star,
   ThumbsUp,
+  Video,
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -23,6 +24,7 @@ const navLinks = [
   { label: "Why Us", href: "#why-us", icon: ThumbsUp },
   { label: "Results", href: "#results", icon: Camera },
   { label: "Reviews", href: "#google-reviews", icon: Star },
+  { label: "Video Consult", href: "#video-consult", icon: Video },
   { label: "Appointment", href: "#appointment", icon: Calendar },
   { label: "FAQ", href: "#faq", icon: MessageSquare },
   { label: "Contact", href: "#contact", icon: Mail },

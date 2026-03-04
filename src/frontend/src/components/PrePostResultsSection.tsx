@@ -7,26 +7,26 @@ const IMAGES = [
   { src: "/assets/uploads/WA_1772619160725-2.jpeg", alt: "Patient result 2" },
   { src: "/assets/uploads/WA_1772619224409-3.jpeg", alt: "Patient result 3" },
   { src: "/assets/uploads/WA_1772619087024-4.jpeg", alt: "Patient result 4" },
-  { src: "/assets/uploads/IMG-20260304-WA0018-5.jpg", alt: "Patient result 5" },
-  { src: "/assets/uploads/WA_1772619244141-6.jpeg", alt: "Patient result 6" },
-  { src: "/assets/uploads/WA_1772619116591-7.jpeg", alt: "Patient result 7" },
-  { src: "/assets/uploads/WA_1772619063538-8.jpeg", alt: "Patient result 8" },
-  { src: "/assets/uploads/WA_1772619020804-9.jpeg", alt: "Patient result 9" },
-  {
-    src: "/assets/uploads/IMG-20260304-WA0006-10.jpg",
-    alt: "Patient result 10",
-  },
+  { src: "/assets/uploads/WA_1772619244141-6.jpeg", alt: "Patient result 5" },
+  { src: "/assets/uploads/WA_1772619116591-7.jpeg", alt: "Patient result 6" },
+  { src: "/assets/uploads/WA_1772619063538-8.jpeg", alt: "Patient result 7" },
+  { src: "/assets/uploads/WA_1772619020804-9.jpeg", alt: "Patient result 8" },
   {
     src: "/assets/uploads/WA_1772619204542-11.jpeg",
-    alt: "Patient result 11",
+    alt: "Patient result 9",
   },
   {
     src: "/assets/uploads/WA_1772619266624-12.jpeg",
-    alt: "Patient result 12",
+    alt: "Patient result 10",
   },
   {
     src: "/assets/uploads/WA_1772619184627-13.jpeg",
-    alt: "Patient result 13",
+    alt: "Patient result 11",
+  },
+  { src: "/assets/uploads/IMG-20260304-WA0018-5.jpg", alt: "X-ray result 12" },
+  {
+    src: "/assets/uploads/IMG-20260304-WA0006-10.jpg",
+    alt: "X-ray result 13",
   },
 ];
 

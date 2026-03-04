@@ -14,6 +14,7 @@ import PageLoader from "./components/PageLoader";
 import PrePostResultsSection from "./components/PrePostResultsSection";
 import ServicesSection from "./components/ServicesSection";
 import TestimonialsSection from "./components/TestimonialsSection";
+import VideoConsultationSection from "./components/VideoConsultationSection";
 import WhatsAppChatButton from "./components/WhatsAppChatButton";
 import WhyChooseUs from "./components/WhyChooseUs";
 
@@ -32,6 +33,7 @@ export default function App() {
         <TestimonialsSection />
         <PrePostResultsSection />
         <GoogleReviewsSection />
+        <VideoConsultationSection />
         <AppointmentSection />
         <BusinessHoursSection />
         <FAQSection />

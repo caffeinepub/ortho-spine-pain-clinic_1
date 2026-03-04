@@ -21,7 +21,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 function HeroStats() {
-  const { count: yearsCount, ref: yearsRef } = useCountUp(6, 1200);
+  const { count: yearsCount, ref: yearsRef } = useCountUp(8, 1200);
   const { count: patientsCount, ref: patientsRef } = useCountUp(5000, 1800);
   const { count: treatmentsCount, ref: treatmentsRef } = useCountUp(10, 1000);
 
