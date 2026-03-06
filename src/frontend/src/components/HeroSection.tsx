@@ -17,8 +17,44 @@ import {
   Share2,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+
+const TAGLINES = [
+  "Your Path to a Pain-Free Life",
+  "Expert Care for Every Pain",
+  "Trusted by 5000+ Patients in Surat",
+  "Healing Hands, Lasting Relief",
+  "Advanced Physiotherapy for Better Living",
+];
+
+function RotatingTagline() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % TAGLINES.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="relative h-8 sm:h-9 overflow-hidden flex items-center justify-center">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
+          className="absolute text-lg sm:text-xl md:text-2xl text-white/80 font-light"
+        >
+          {TAGLINES[index]}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+  );
+}
 
 function HeroStats() {
   const { count: yearsCount, ref: yearsRef } = useCountUp(8, 1200);
@@ -183,15 +219,15 @@ export default function HeroSection() {
           <span style={{ color: "oklch(0.90 0.10 15)" }}>PAIN CLINIC</span>
         </motion.h1>
 
-        {/* Tagline */}
-        <motion.p
+        {/* Rotating Tagline */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
-          className="text-lg sm:text-xl md:text-2xl text-white/80 max-w-2xl mx-auto mb-4 font-light leading-relaxed"
+          className="max-w-2xl mx-auto mb-4"
         >
-          {clinic?.tagline || "Expert Physiotherapy Care for a Pain-Free Life"}
-        </motion.p>
+          <RotatingTagline />
+        </motion.div>
 
         {/* Doctor info */}
         <motion.p

@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { serviceDetails } from "@/data/serviceDetails";
 import { useServices } from "@/hooks/useQueries";
@@ -24,11 +25,13 @@ import {
   PersonStanding,
   RefreshCw,
   Scissors,
+  Search,
   Star,
   Syringe,
   User,
   Waves,
   Wind,
+  X,
   Zap,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -462,6 +465,7 @@ function CategoryPanel({
 export default function ServicesSection() {
   const { data: services = [] } = useServices();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const detail = selectedService ? serviceDetails[selectedService.name] : null;
   const imageUrl = selectedService
@@ -484,6 +488,16 @@ export default function ServicesSection() {
   const featuredServices = FEATURED_SERVICES.map((name) =>
     services.find((s) => s.name === name),
   ).filter((s): s is Service => !!s);
+
+  // Search filtered services
+  const trimmedQuery = searchQuery.trim().toLowerCase();
+  const searchResults = trimmedQuery
+    ? services.filter(
+        (s) =>
+          s.name.toLowerCase().includes(trimmedQuery) ||
+          s.description.toLowerCase().includes(trimmedQuery),
+      )
+    : [];
 
   return (
     <section
@@ -553,8 +567,97 @@ export default function ServicesSection() {
           </p>
         </motion.div>
 
-        {/* ── Featured Hero Cards ─────────────────────── */}
-        {featuredServices.length > 0 && (
+        {/* ── Search Bar ──────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-10 max-w-lg mx-auto"
+        >
+          <div className="relative">
+            <Search
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
+              style={{ color: "oklch(0.62 0.18 15)" }}
+            />
+            <Input
+              data-ocid="services.search_input"
+              type="text"
+              placeholder="Search treatments (e.g. back, knee, spine...)"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-10 py-3 rounded-full border-2 text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+              style={{
+                borderColor: searchQuery
+                  ? "oklch(0.62 0.18 15)"
+                  : "oklch(0.88 0.020 15)",
+                background: "oklch(1 0 0)",
+                boxShadow: searchQuery
+                  ? "0 0 0 3px oklch(0.62 0.18 15 / 0.12)"
+                  : "none",
+                transition: "border-color 0.2s, box-shadow 0.2s",
+              }}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                data-ocid="services.search_clear_button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-0.5 rounded-full transition-colors"
+                style={{ color: "oklch(0.62 0.18 15)" }}
+                aria-label="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Search Results */}
+          {trimmedQuery && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="mt-2 px-2"
+            >
+              {searchResults.length > 0 ? (
+                <>
+                  <p
+                    className="text-xs mb-4"
+                    style={{ color: "oklch(0.55 0.025 20)" }}
+                  >
+                    {searchResults.length} treatment
+                    {searchResults.length !== 1 ? "s" : ""} found for "
+                    {searchQuery}"
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <AnimatePresence mode="popLayout">
+                      {searchResults.map((service, index) => (
+                        <ServiceCard
+                          key={service.name}
+                          service={service}
+                          index={index}
+                          onSelect={setSelectedService}
+                        />
+                      ))}
+                    </AnimatePresence>
+                  </div>
+                </>
+              ) : (
+                <p
+                  className="text-sm text-center py-4"
+                  style={{ color: "oklch(0.55 0.025 20)" }}
+                >
+                  No treatments found for "{searchQuery}". Try "back", "knee",
+                  or "spine".
+                </p>
+              )}
+            </motion.div>
+          )}
+        </motion.div>
+
+        {/* ── Featured Hero Cards + Category Tabs (hidden during search) ── */}
+        {!trimmedQuery && featuredServices.length > 0 && (
           <div className="mb-12">
             <motion.div
               initial={{ opacity: 0, y: 8 }}
@@ -594,59 +697,61 @@ export default function ServicesSection() {
         )}
 
         {/* ── Category Tabs ───────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.1 }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div
-              className="h-px flex-1 max-w-[60px]"
-              style={{ background: "oklch(0.62 0.18 15)" }}
-            />
-            <span
-              className="text-xs font-bold tracking-widest uppercase"
-              style={{ color: "oklch(0.62 0.18 15)" }}
-            >
-              Browse by Category
-            </span>
-            <div
-              className="h-px flex-1"
-              style={{ background: "oklch(0.90 0.016 15)" }}
-            />
-          </div>
+        {!trimmedQuery && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: 0.1 }}
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div
+                className="h-px flex-1 max-w-[60px]"
+                style={{ background: "oklch(0.62 0.18 15)" }}
+              />
+              <span
+                className="text-xs font-bold tracking-widest uppercase"
+                style={{ color: "oklch(0.62 0.18 15)" }}
+              >
+                Browse by Category
+              </span>
+              <div
+                className="h-px flex-1"
+                style={{ background: "oklch(0.90 0.016 15)" }}
+              />
+            </div>
 
-          <Tabs defaultValue={CATEGORIES[0].id} className="w-full">
-            {/* Tab Bar */}
-            <TabsList
-              className="flex flex-wrap gap-2 h-auto bg-transparent p-0 mb-7"
-              aria-label="Service categories"
-            >
-              {CATEGORIES.map((cat, idx) => (
-                <TabsTrigger
-                  key={cat.id}
-                  value={cat.id}
-                  data-ocid={`services.tab.${idx + 1}`}
-                  className="services-tab-trigger"
-                >
-                  {cat.label}
-                </TabsTrigger>
+            <Tabs defaultValue={CATEGORIES[0].id} className="w-full">
+              {/* Tab Bar */}
+              <TabsList
+                className="flex flex-wrap gap-2 h-auto bg-transparent p-0 mb-7"
+                aria-label="Service categories"
+              >
+                {CATEGORIES.map((cat, idx) => (
+                  <TabsTrigger
+                    key={cat.id}
+                    value={cat.id}
+                    data-ocid={`services.tab.${idx + 1}`}
+                    className="services-tab-trigger"
+                  >
+                    {cat.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              {/* Tab Panels */}
+              {CATEGORIES.map((cat) => (
+                <TabsContent key={cat.id} value={cat.id} className="mt-0">
+                  <CategoryPanel
+                    categoryServices={cat.services}
+                    allServices={services}
+                    onSelect={setSelectedService}
+                  />
+                </TabsContent>
               ))}
-            </TabsList>
-
-            {/* Tab Panels */}
-            {CATEGORIES.map((cat) => (
-              <TabsContent key={cat.id} value={cat.id} className="mt-0">
-                <CategoryPanel
-                  categoryServices={cat.services}
-                  allServices={services}
-                  onSelect={setSelectedService}
-                />
-              </TabsContent>
-            ))}
-          </Tabs>
-        </motion.div>
+            </Tabs>
+          </motion.div>
+        )}
 
         {/* Bottom CTA */}
         <motion.div

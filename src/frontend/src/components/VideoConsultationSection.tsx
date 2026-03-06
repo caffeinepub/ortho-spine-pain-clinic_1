@@ -13,7 +13,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { SiGooglemeet, SiZoom } from "react-icons/si";
-import upiQrCode from "/assets/uploads/WA_1772648312707-1.jpeg";
+import upiQrCode from "/assets/uploads/WA_1772648312707-1-1.jpeg";
 
 const PLATFORMS = [
   {

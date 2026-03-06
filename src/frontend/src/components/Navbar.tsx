@@ -7,7 +7,6 @@ import {
   Layers,
   Mail,
   Menu,
-  MessageSquare,
   Phone,
   Star,
   ThumbsUp,
@@ -26,7 +25,6 @@ const navLinks = [
   { label: "Reviews", href: "#google-reviews", icon: Star },
   { label: "Video Consult", href: "#video-consult", icon: Video },
   { label: "Appointment", href: "#appointment", icon: Calendar },
-  { label: "FAQ", href: "#faq", icon: MessageSquare },
   { label: "Contact", href: "#contact", icon: Mail },
 ];
 
