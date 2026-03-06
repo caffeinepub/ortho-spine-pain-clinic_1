@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useClinicInfo } from "@/hooks/useQueries";
 import {
   Calendar,
@@ -75,13 +74,13 @@ export default function ContactSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-5"
           >
-            {/* Appointment CTA Card */}
+            {/* Unified Contact Card */}
             <motion.div
               custom={0}
               variants={contactItemVariants}
-              className="p-6 rounded-2xl text-white relative overflow-hidden"
+              className="rounded-2xl text-white relative overflow-hidden"
               style={{
                 background:
                   "linear-gradient(135deg, oklch(0.55 0.18 12), oklch(0.72 0.16 18))",
@@ -94,24 +93,26 @@ export default function ContactSection() {
                     "radial-gradient(circle at 80% 20%, oklch(0.85 0.10 15), transparent 60%)",
                 }}
               />
-              <div className="relative z-10">
-                <Calendar className="w-8 h-8 mb-3 text-white/80" />
-                <h3 className="font-display text-xl font-bold mb-2">
-                  Book an Appointment
-                </h3>
+              <div className="relative z-10 p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Calendar className="w-6 h-6 text-white/80" />
+                  <h3 className="font-display text-lg font-bold">
+                    Book an Appointment
+                  </h3>
+                </div>
                 <p className="text-white/70 text-sm mb-4">
-                  Call us directly or walk in. We welcome all patients with open
-                  arms and expert care.
+                  Call us directly or walk in — we welcome all patients with
+                  open arms.
                 </p>
-                <div className="flex flex-col gap-2">
+                <div className="grid grid-cols-2 gap-2.5">
                   {phones.map((phone) => (
                     <a
                       key={phone}
                       href={`tel:${phone}`}
-                      className="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-xl px-4 py-3"
+                      className="flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 active:bg-white/30 transition-colors rounded-xl px-3 py-2.5"
                     >
-                      <Phone className="w-4 h-4 text-white/70 flex-shrink-0" />
-                      <span className="font-semibold tracking-wide">
+                      <Phone className="w-3.5 h-3.5 text-white/70 flex-shrink-0" />
+                      <span className="font-semibold text-sm tracking-wide">
                         {phone}
                       </span>
                     </a>
@@ -120,66 +121,62 @@ export default function ContactSection() {
               </div>
             </motion.div>
 
-            {/* Address */}
+            {/* Address + Socials */}
             <motion.div
               custom={1}
               variants={contactItemVariants}
-              className="p-6 rounded-2xl bg-white border border-border space-y-4"
+              className="rounded-2xl bg-white border border-border divide-y divide-border overflow-hidden"
               style={{ boxShadow: "0 4px 24px -4px rgba(120,0,0,0.08)" }}
             >
-              <div className="flex items-start gap-4">
+              {/* Address row */}
+              <div className="flex items-start gap-4 p-5">
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
                   style={{ background: "oklch(0.94 0.025 15 / 0.5)" }}
                 >
                   <MapPin
-                    className="w-5 h-5"
+                    className="w-4 h-4"
                     style={{ color: "oklch(0.62 0.18 15)" }}
                   />
                 </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-sm text-foreground mb-0.5">
                     Clinic Address
                   </h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className="text-muted-foreground text-xs leading-relaxed">
                     {address}
                   </p>
                   <a
                     href="https://maps.app.goo.gl/2dbsJBFvPj29VffY7"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 mt-2 text-sm font-semibold hover:underline"
+                    className="inline-flex items-center gap-1 mt-1.5 text-xs font-semibold hover:underline"
                     style={{ color: "oklch(0.62 0.18 15)" }}
                   >
-                    <MapPin className="w-3.5 h-3.5" />
-                    Get Directions on Google Maps
+                    <MapPin className="w-3 h-3" />
+                    Get Directions
                   </a>
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="border-t border-border" />
-
-              {/* Instagram */}
-              <div className="flex items-center gap-4">
+              {/* Instagram row */}
+              <div className="flex items-center gap-4 px-5 py-3.5">
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{
                     background:
                       "linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)",
                   }}
                 >
-                  <Instagram className="w-5 h-5 text-white" />
+                  <Instagram className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground mb-0.5">
-                    Follow on Instagram
-                  </h4>
+                  <p className="text-xs text-muted-foreground">Instagram</p>
                   <a
                     href={instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm hover:underline"
+                    className="text-sm font-semibold hover:underline"
                     style={{ color: "#dc2743" }}
                   >
                     @ortho_spine.pain_clinic
@@ -187,56 +184,27 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="border-t border-border" />
-
-              {/* WhatsApp prompt */}
-              <div className="flex items-center gap-4">
+              {/* WhatsApp row */}
+              <div className="flex items-center gap-4 px-5 py-3.5">
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ background: "#25D366" }}
                 >
-                  <MessageCircle className="w-5 h-5 text-white" />
+                  <MessageCircle className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground mb-0.5">
-                    WhatsApp
-                  </h4>
+                  <p className="text-xs text-muted-foreground">WhatsApp</p>
                   <a
                     href="https://wa.me/918401282296"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium hover:underline"
+                    className="text-sm font-semibold hover:underline"
                     style={{ color: "#25D366" }}
                   >
-                    Chat on WhatsApp →
+                    Chat with us →
                   </a>
                 </div>
               </div>
-            </motion.div>
-
-            {/* Quick Call Buttons */}
-            <motion.div
-              custom={2}
-              variants={contactItemVariants}
-              className="grid grid-cols-2 gap-3"
-            >
-              {phones.map((phone) => (
-                <Button
-                  key={phone}
-                  asChild
-                  className="font-semibold"
-                  style={{
-                    background: "oklch(0.62 0.18 15)",
-                    color: "white",
-                  }}
-                >
-                  <a href={`tel:${phone}`}>
-                    <Phone className="w-4 h-4 mr-2" />
-                    {phone}
-                  </a>
-                </Button>
-              ))}
             </motion.div>
           </motion.div>
 
@@ -254,11 +222,11 @@ export default function ContactSection() {
             >
               <MapPin className="w-4 h-4 text-white/70" />
               <span className="text-sm font-medium text-white/90">
-                Swastik Chambers, Nanpura, Surat
+                Ortho-Spine Pain Clinic, Nanpura, Surat
               </span>
             </div>
             <iframe
-              src="https://maps.google.com/maps?q=Swastik+Chambers+Athugar+Street+Nanpura+Surat&output=embed"
+              src="https://maps.google.com/maps?q=Ortho+Spine+Pain+Clinic+Athugar+Street+Nanpura+Timalyawad+Surat&output=embed"
               title="ORTHO-SPINE PAIN CLINIC Location"
               width="100%"
               height="450"

@@ -250,85 +250,32 @@ export default function AppointmentSection() {
                   />
                 </div>
 
-                {/* Date + Time row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Preferred Date */}
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="appt-date"
-                      className="text-sm font-semibold"
-                      style={{ color: "oklch(0.35 0.04 18)" }}
-                    >
-                      Preferred Date{" "}
-                      <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
-                    </Label>
-                    <Input
-                      id="appt-date"
-                      data-ocid="appointment.date_input"
-                      type="date"
-                      min={today}
-                      required
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
-                      className="h-11 text-sm focus-visible:ring-1"
-                      style={
-                        {
-                          borderColor: "oklch(0.88 0.025 15)",
-                          "--tw-ring-color": "oklch(0.62 0.18 15)",
-                        } as React.CSSProperties
-                      }
-                    />
-                  </div>
-
-                  {/* Preferred Time (dropdown) */}
-                  <div className="space-y-2">
-                    <Label
-                      className="text-sm font-semibold flex items-center gap-1.5"
-                      style={{ color: "oklch(0.35 0.04 18)" }}
-                    >
-                      <Clock
-                        className="w-3.5 h-3.5"
-                        style={{ color: "oklch(0.55 0.18 15)" }}
-                      />
-                      Preferred Time{" "}
-                      <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
-                    </Label>
-                    <Select
-                      required
-                      value={timeSlot}
-                      onValueChange={setTimeSlot}
-                    >
-                      <SelectTrigger
-                        data-ocid="appointment.time_select"
-                        className="h-11 text-sm focus:ring-1"
-                        style={
-                          {
-                            borderColor: "oklch(0.88 0.025 15)",
-                            "--tw-ring-color": "oklch(0.62 0.18 15)",
-                          } as React.CSSProperties
-                        }
-                      >
-                        <SelectValue placeholder="Select time" />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-64">
-                        {TIME_SLOTS.map(({ group, slots }) => (
-                          <div key={group}>
-                            <div
-                              className="px-2 py-1.5 text-xs font-bold uppercase tracking-widest"
-                              style={{ color: "oklch(0.55 0.18 15)" }}
-                            >
-                              {group}
-                            </div>
-                            {slots.map((slot) => (
-                              <SelectItem key={slot} value={slot}>
-                                {slot}
-                              </SelectItem>
-                            ))}
-                          </div>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                {/* Preferred Date */}
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="appt-date"
+                    className="text-sm font-semibold"
+                    style={{ color: "oklch(0.35 0.04 18)" }}
+                  >
+                    Preferred Date{" "}
+                    <span style={{ color: "oklch(0.55 0.18 15)" }}>*</span>
+                  </Label>
+                  <Input
+                    id="appt-date"
+                    data-ocid="appointment.date_input"
+                    type="date"
+                    min={today}
+                    required
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="h-11 text-sm focus-visible:ring-1"
+                    style={
+                      {
+                        borderColor: "oklch(0.88 0.025 15)",
+                        "--tw-ring-color": "oklch(0.62 0.18 15)",
+                      } as React.CSSProperties
+                    }
+                  />
                 </div>
 
                 {/* Visual time slot quick-picker (shown after date is selected) */}

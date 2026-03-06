@@ -7,7 +7,6 @@ import {
   CreditCard,
   IndianRupee,
   Info,
-  QrCode,
   Smartphone,
   Video,
 } from "lucide-react";
@@ -66,7 +65,6 @@ export default function VideoConsultationSection() {
   const [platform, setPlatform] = useState("");
   const [concern, setConcern] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [showQr, setShowQr] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,7 +95,6 @@ export default function VideoConsultationSection() {
     setPlatform("");
     setConcern("");
     setSubmitted(false);
-    setShowQr(false);
   };
 
   return (
@@ -521,89 +518,35 @@ export default function VideoConsultationSection() {
                     />
                   </div>
 
-                  {/* Payment info pre-submit */}
+                  {/* Slim payment info row */}
                   <div
-                    className="rounded-xl overflow-hidden"
+                    className="flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-xs"
                     style={{
                       background: "oklch(0.97 0.012 50)",
                       border: "1px solid oklch(0.88 0.04 50)",
                     }}
                   >
-                    <div className="px-4 py-4 flex items-start gap-3">
-                      <CreditCard
-                        className="w-4 h-4 flex-shrink-0 mt-0.5"
-                        style={{ color: "oklch(0.55 0.14 50)" }}
-                      />
-                      <div className="text-xs leading-relaxed space-y-1 flex-1">
-                        <p
-                          className="font-bold text-sm"
-                          style={{ color: "oklch(0.35 0.08 50)" }}
-                        >
-                          Payment: ₹700 at the time of appointment
-                        </p>
-                        <p style={{ color: "oklch(0.50 0.06 50)" }}>
-                          UPI ID:{" "}
-                          <a
-                            href="upi://pay?pa=shaikh.arbaz581@okhdfcbank&pn=Dr%20Arbaz%20Shaikh&am=700&cu=INR"
-                            className="font-bold underline underline-offset-2 transition-opacity hover:opacity-80 active:opacity-60"
-                            style={{ color: "oklch(0.38 0.16 50)" }}
-                          >
-                            shaikh.arbaz581@okhdfcbank
-                          </a>
-                        </p>
-                        <p style={{ color: "oklch(0.55 0.04 50)" }}>
-                          Make payment only after Dr. confirms the timing.
-                        </p>
-                        <button
-                          type="button"
-                          onClick={() => setShowQr((v) => !v)}
-                          className="flex items-center gap-1.5 mt-2 text-xs font-semibold transition-opacity hover:opacity-80"
-                          style={{ color: "oklch(0.45 0.14 50)" }}
-                        >
-                          <QrCode className="w-3.5 h-3.5" />
-                          {showQr ? "Hide QR Code" : "Show UPI QR Code"}
-                        </button>
-                      </div>
-                    </div>
-                    <AnimatePresence>
-                      {showQr && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <div
-                            className="px-4 pb-4 flex flex-col items-center gap-2"
-                            style={{
-                              borderTop: "1px solid oklch(0.88 0.04 50)",
-                            }}
-                          >
-                            <p
-                              className="text-xs font-semibold pt-3"
-                              style={{ color: "oklch(0.45 0.08 50)" }}
-                            >
-                              Scan to Pay via UPI
-                            </p>
-                            <img
-                              src={upiQrCode}
-                              alt="UPI QR Code - Dr. Arbaz Shaikh"
-                              className="w-52 h-52 rounded-xl object-cover"
-                              style={{
-                                border: "2px solid oklch(0.85 0.06 50)",
-                              }}
-                            />
-                            <p
-                              className="text-xs text-center"
-                              style={{ color: "oklch(0.55 0.04 50)" }}
-                            >
-                              shaikh.arbaz581@okhdfcbank
-                            </p>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    <CreditCard
+                      className="w-3.5 h-3.5 flex-shrink-0"
+                      style={{ color: "oklch(0.55 0.14 50)" }}
+                    />
+                    <span style={{ color: "oklch(0.45 0.06 50)" }}>
+                      <span
+                        className="font-semibold"
+                        style={{ color: "oklch(0.35 0.10 50)" }}
+                      >
+                        ₹700
+                      </span>
+                      {" · UPI: "}
+                      <a
+                        href="upi://pay?pa=shaikh.arbaz581@okhdfcbank&pn=Dr%20Arbaz%20Shaikh&am=700&cu=INR"
+                        className="font-semibold underline underline-offset-2 hover:opacity-80"
+                        style={{ color: "oklch(0.38 0.16 50)" }}
+                      >
+                        shaikh.arbaz581@okhdfcbank
+                      </a>
+                      {" · Pay after Dr. confirms"}
+                    </span>
                   </div>
 
                   {/* Submit */}

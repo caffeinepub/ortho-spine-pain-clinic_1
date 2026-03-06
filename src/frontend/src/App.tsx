@@ -4,7 +4,6 @@ import AppointmentSection from "./components/AppointmentSection";
 import BackToTopButton from "./components/BackToTopButton";
 import BusinessHoursSection from "./components/BusinessHoursSection";
 import ContactSection from "./components/ContactSection";
-import FAQSection from "./components/FAQSection";
 import FloatingShareButton from "./components/FloatingShareButton";
 import Footer from "./components/Footer";
 import GoogleReviewsSection from "./components/GoogleReviewsSection";
@@ -31,10 +30,9 @@ export default function App() {
         <WhyChooseUs />
         <PrePostResultsSection />
         <GoogleReviewsSection />
-        <VideoConsultationSection />
         <AppointmentSection />
+        <VideoConsultationSection />
         <BusinessHoursSection />
-        <FAQSection />
         <ContactSection />
       </main>
       <Footer />
