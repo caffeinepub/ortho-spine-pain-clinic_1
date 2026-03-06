@@ -166,4 +166,40 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Ideal for post-operative patients, elderly individuals, and those with severe mobility limitations",
     ],
   },
+  "Migraine & Headache Relief": {
+    fullDescription:
+      "Migraine, sinus headache, tension headache, and cervicogenic headache respond exceptionally well to physiotherapy. At Ortho-Spine Pain Clinic, Dr. Arbaz Shaikh uses a combination of cervical spine mobilization, trigger point release, suboccipital muscle therapy, postural correction, and biofeedback-based relaxation techniques to reduce headache frequency, intensity, and duration. This drug-complementary approach addresses the root musculoskeletal causes contributing to chronic headache syndromes.",
+    benefits: [
+      "Cervical mobilization and suboccipital release to reduce tension headache and cervicogenic migraine triggers",
+      "Sinus headache relief through facial pressure point therapy and drainage facilitation techniques",
+      "Long-term reduction in headache frequency through postural correction and lifestyle guidance",
+    ],
+  },
+  "Flexion Distraction Therapy": {
+    fullDescription:
+      "Flexion distraction therapy is a highly specialized, non-surgical spinal decompression technique performed on a purpose-built motorized table that gently distracts and flexes the spine. This technique is among the most effective conservative treatments for disc herniation, sciatica, spinal stenosis, and lumbar facet syndrome. The rhythmic pumping motion reduces intradiscal pressure, draws herniated disc material away from nerve roots, and restores normal spinal mechanics — all without pain or force.",
+    benefits: [
+      "Reduces intradiscal pressure to relieve nerve root compression causing sciatica and radiating pain",
+      "Effective for disc herniation, spinal stenosis, and failed back surgery syndrome",
+      "Gentle, zero-force technique safe for all ages including elderly and post-surgical patients",
+    ],
+  },
+  "Spine Adjustor Tool": {
+    fullDescription:
+      "The Spine Adjustor is a computerized, instrument-assisted spinal adjustment device that delivers precise, controlled impulses to specific spinal segments. Unlike manual adjustment, the Spine Adjustor provides measurable, reproducible force with real-time feedback, making it exceptionally safe and effective for patients of all ages. It is particularly suited for patients with osteoporosis, post-surgical spines, anxiety around manual manipulation, or those requiring very targeted segmental adjustments.",
+    benefits: [
+      "Precisely controlled spinal adjustments without the cracking sound of traditional manipulation",
+      "Safe for osteoporotic, post-surgical, and pediatric/elderly spines requiring gentle care",
+      "Computer-assisted feedback ensures accurate vertebral targeting and optimal treatment force",
+    ],
+  },
+  "Air Compression Therapy": {
+    fullDescription:
+      "Air compression therapy (pneumatic compression) uses inflatable sleeves or boots that apply sequential, graduated pressure to the limbs to improve venous and lymphatic circulation. At Ortho-Spine Pain Clinic, this therapy is used for post-injury swelling, lymphedema, deep vein thrombosis prevention, peripheral artery disease rehabilitation, and sports recovery. The rhythmic compression mimics the natural muscle pump, dramatically reducing edema and accelerating tissue healing.",
+    benefits: [
+      "Rapid reduction of limb edema and post-traumatic swelling within initial treatment sessions",
+      "Lymphedema management and post-surgical swelling control for upper and lower limbs",
+      "Accelerates sports recovery by flushing metabolic waste products and improving nutrient delivery",
+    ],
+  },
 };

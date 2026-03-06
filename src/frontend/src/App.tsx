@@ -13,7 +13,6 @@ import Navbar from "./components/Navbar";
 import PageLoader from "./components/PageLoader";
 import PrePostResultsSection from "./components/PrePostResultsSection";
 import ServicesSection from "./components/ServicesSection";
-import TestimonialsSection from "./components/TestimonialsSection";
 import VideoConsultationSection from "./components/VideoConsultationSection";
 import WhatsAppChatButton from "./components/WhatsAppChatButton";
 import WhyChooseUs from "./components/WhyChooseUs";
@@ -30,7 +29,6 @@ export default function App() {
         <AboutSection />
         <ServicesSection />
         <WhyChooseUs />
-        <TestimonialsSection />
         <PrePostResultsSection />
         <GoogleReviewsSection />
         <VideoConsultationSection />

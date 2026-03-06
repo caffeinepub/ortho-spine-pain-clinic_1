@@ -177,6 +177,29 @@
 }
 
 /* ===========================
+   SERVICES TAB PILL STYLES
+   =========================== */
+@layer components {
+  .services-tab-trigger {
+    @apply rounded-full px-4 py-2 text-sm font-semibold border transition-all duration-200;
+    background: white;
+    border-color: oklch(0.86 0.025 15);
+    color: oklch(0.45 0.04 18);
+  }
+  .services-tab-trigger[data-state="active"] {
+    background: linear-gradient(135deg, oklch(0.57 0.18 12), oklch(0.68 0.16 18));
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 14px oklch(0.55 0.18 15 / 0.30);
+  }
+  .services-tab-trigger:hover:not([data-state="active"]) {
+    background: oklch(0.96 0.018 15);
+    border-color: oklch(0.75 0.10 15);
+    color: oklch(0.55 0.18 15);
+  }
+}
+
+/* ===========================
    SMOOTH SECTION TRANSITIONS
    =========================== */
 @layer utilities {

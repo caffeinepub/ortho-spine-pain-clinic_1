@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { serviceDetails } from "@/data/serviceDetails";
 import { useServices } from "@/hooks/useQueries";
 import {
@@ -23,12 +24,14 @@ import {
   PersonStanding,
   RefreshCw,
   Scissors,
+  Star,
   Syringe,
   User,
   Waves,
+  Wind,
   Zap,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import type { Service } from "../backend.d";
 
@@ -61,6 +64,14 @@ const SERVICE_IMAGE_MAP: Record<string, string> = {
   "Cupping Therapy": "/assets/generated/service-cupping.dim_600x400.jpg",
   "Home Visit Physiotherapy":
     "/assets/generated/service-home-visit.dim_600x400.jpg",
+  "Migraine & Headache Relief":
+    "/assets/generated/service-migraine-headache.dim_600x400.jpg",
+  "Flexion Distraction Therapy":
+    "/assets/generated/service-flexion-distraction.dim_600x400.jpg",
+  "Spine Adjustor Tool":
+    "/assets/generated/service-spine-adjustor.dim_600x400.jpg",
+  "Air Compression Therapy":
+    "/assets/generated/service-air-compression.dim_600x400.jpg",
 };
 
 const iconMap: Record<string, React.ElementType> = {
@@ -83,9 +94,63 @@ const iconMap: Record<string, React.ElementType> = {
   waves: Waves,
   osteopathy: RefreshCw,
   chiropractic: Crosshair,
+  headache: Brain,
+  flexion: Bone,
+  spineadjust: Crosshair,
+  aircompression: Wind,
   default: Activity,
 };
 
+// Category tab definitions
+const CATEGORIES = [
+  {
+    id: "spinal",
+    label: "Spinal & Pain",
+    services: [
+      "Back Pain Treatment",
+      "Neck Pain & Cervical",
+      "Sciatica & Disc Problems",
+      "Knee Pain Management",
+      "Shoulder Disorders",
+      "Migraine & Headache Relief",
+      "Flexion Distraction Therapy",
+      "Spine Adjustor Tool",
+    ],
+  },
+  {
+    id: "rehab",
+    label: "Rehab & Recovery",
+    services: [
+      "Sports Injury Rehab",
+      "Post-Surgical Rehab",
+      "Neurological Physiotherapy",
+      "Postural Correction",
+      "Pediatric Physiotherapy",
+      "Geriatric Physiotherapy",
+    ],
+  },
+  {
+    id: "therapies",
+    label: "Specialized Therapies",
+    services: [
+      "Electrotherapy",
+      "Dry Needling",
+      "Manual Therapy",
+      "Cupping Therapy",
+      "Air Compression Therapy",
+    ],
+  },
+  {
+    id: "wellness",
+    label: "Home & Wellness",
+    services: ["Home Visit Physiotherapy"],
+  },
+];
+
+const FEATURED_SERVICES = ["Chiropractic", "Osteopathy"];
+const SHOW_MORE_THRESHOLD = 6;
+
+// Compact service card for category tabs
 function ServiceCard({
   service,
   index,
@@ -102,10 +167,14 @@ function ServiceCard({
   return (
     <motion.button
       type="button"
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: (index % 4) * 0.07, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 10 }}
+      transition={{
+        duration: 0.35,
+        delay: (index % 6) * 0.05,
+        ease: "easeOut",
+      }}
       whileHover={{
         y: -4,
         boxShadow: "0 16px 40px oklch(0.62 0.18 15 / 0.15)",
@@ -121,38 +190,35 @@ function ServiceCard({
           boxShadow: "0 2px 8px oklch(0.62 0.18 15 / 0.06)",
         }}
       >
-        {/* Image or Color bar + icon */}
         {hasImage ? (
-          <div className="relative overflow-hidden h-36">
+          <div className="relative overflow-hidden h-28">
             <img
               src={imageUrl}
               alt={service.name}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
-            {/* Gradient overlay */}
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to bottom, oklch(0.62 0.18 15 / 0.10) 0%, oklch(0.25 0.08 15 / 0.35) 100%)",
+                  "linear-gradient(to bottom, oklch(0.62 0.18 15 / 0.08) 0%, oklch(0.25 0.08 15 / 0.30) 100%)",
               }}
             />
-            {/* Icon badge on image */}
             <div
-              className="absolute bottom-3 left-4 w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+              className="absolute bottom-2 left-3 w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
               style={{
                 background:
                   "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
-                boxShadow: "0 4px 14px oklch(0.62 0.18 15 / 0.35)",
+                boxShadow: "0 4px 12px oklch(0.62 0.18 15 / 0.35)",
               }}
             >
-              <Icon className="w-5 h-5 text-white" />
+              <Icon className="w-4 h-4 text-white" />
             </div>
           </div>
         ) : (
           <div
-            className="px-6 pt-6 pb-4 relative"
+            className="px-4 pt-4 pb-3 relative"
             style={{ background: "oklch(0.97 0.012 15)" }}
           >
             <div
@@ -164,32 +230,30 @@ function ServiceCard({
               }}
             />
             <div
-              className="relative z-10 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+              className="relative z-10 w-10 h-10 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
               style={{
                 background:
                   "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
-                boxShadow: "0 4px 14px oklch(0.62 0.18 15 / 0.25)",
+                boxShadow: "0 4px 12px oklch(0.62 0.18 15 / 0.25)",
               }}
             >
-              <Icon className="w-6 h-6 text-white" />
+              <Icon className="w-5 h-5 text-white" />
             </div>
           </div>
         )}
 
-        {/* Text content */}
-        <div className="px-6 py-4 flex flex-col flex-1">
+        <div className="px-4 py-3 flex flex-col flex-1">
           <h3
-            className="font-display font-bold text-sm text-foreground mb-1.5 leading-snug tracking-tight"
+            className="font-display font-bold text-sm text-foreground mb-1 leading-snug tracking-tight"
             style={{ letterSpacing: "-0.01em" }}
           >
             {service.name}
           </h3>
-          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 flex-1">
             {service.description}
           </p>
 
-          {/* Bottom hover accent */}
-          <div className="mt-3 pt-3 border-t border-border/50">
+          <div className="mt-2.5 pt-2.5 border-t border-border/50">
             <span
               className="text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1"
               style={{ color: "oklch(0.55 0.18 15)" }}
@@ -200,13 +264,198 @@ function ServiceCard({
               </span>
             </span>
             <div
-              className="h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mt-1"
+              className="h-px scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mt-0.5"
               style={{ background: "oklch(0.62 0.18 15)" }}
             />
           </div>
         </div>
       </div>
     </motion.button>
+  );
+}
+
+// Featured hero card (larger, always visible)
+function FeaturedCard({
+  service,
+  index,
+  onSelect,
+  ocid,
+}: {
+  service: Service;
+  index: number;
+  onSelect: (service: Service) => void;
+  ocid: string;
+}) {
+  const Icon = iconMap[service.iconName] ?? iconMap.default;
+  const imageUrl = SERVICE_IMAGE_MAP[service.name];
+
+  return (
+    <motion.button
+      type="button"
+      data-ocid={ocid}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.55, delay: index * 0.12, ease: "easeOut" }}
+      whileHover={{
+        y: -6,
+        boxShadow: "0 24px 56px oklch(0.55 0.18 15 / 0.22)",
+      }}
+      className="card-hover-glow group cursor-pointer w-full text-left"
+      onClick={() => onSelect(service)}
+      aria-label={`Learn more about ${service.name}`}
+    >
+      <div
+        className="h-full bg-white rounded-2xl border overflow-hidden flex flex-col"
+        style={{
+          borderColor: "oklch(0.85 0.025 15)",
+          boxShadow: "0 4px 16px oklch(0.62 0.18 15 / 0.10)",
+        }}
+      >
+        {/* Featured badge */}
+        <div className="relative overflow-hidden" style={{ height: "11rem" }}>
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={service.name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+          ) : (
+            <div
+              className="w-full h-full"
+              style={{
+                background:
+                  "linear-gradient(135deg, oklch(0.92 0.025 15), oklch(0.88 0.035 15))",
+              }}
+            />
+          )}
+          {/* Gradient overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, oklch(0.62 0.18 15 / 0.05) 0%, oklch(0.20 0.06 15 / 0.45) 100%)",
+            }}
+          />
+          {/* Featured pill badge */}
+          <div
+            className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full"
+            style={{
+              background:
+                "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
+              boxShadow: "0 2px 8px oklch(0.55 0.18 15 / 0.40)",
+            }}
+          >
+            <Star className="w-3 h-3 text-white fill-white" />
+            <span className="text-white text-[10px] font-bold tracking-wider uppercase">
+              Featured
+            </span>
+          </div>
+          {/* Icon badge */}
+          <div
+            className="absolute bottom-3 left-4 w-11 h-11 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+            style={{
+              background:
+                "linear-gradient(135deg, oklch(0.60 0.18 12), oklch(0.72 0.16 18))",
+              boxShadow: "0 4px 16px oklch(0.55 0.18 15 / 0.40)",
+            }}
+          >
+            <Icon className="w-5 h-5 text-white" />
+          </div>
+        </div>
+
+        <div className="px-5 py-4 flex flex-col flex-1">
+          <h3
+            className="font-display font-extrabold text-base text-foreground mb-2 leading-snug"
+            style={{ letterSpacing: "-0.02em" }}
+          >
+            {service.name}
+          </h3>
+          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+            {service.description}
+          </p>
+
+          <div className="mt-4 pt-3 border-t border-border/50 flex items-center justify-between">
+            <span
+              className="text-sm font-semibold flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-300"
+              style={{ color: "oklch(0.55 0.18 15)" }}
+            >
+              Explore treatment
+              <span className="transition-transform duration-300 group-hover:translate-x-1 inline-block">
+                →
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.button>
+  );
+}
+
+// Category tab panel with show more/less
+function CategoryPanel({
+  categoryServices,
+  allServices,
+  onSelect,
+}: {
+  categoryServices: string[];
+  allServices: Service[];
+  onSelect: (service: Service) => void;
+}) {
+  const [showAll, setShowAll] = useState(false);
+
+  const matchedServices = categoryServices
+    .map((name) => allServices.find((s) => s.name === name))
+    .filter((s): s is Service => !!s);
+
+  const visibleServices = showAll
+    ? matchedServices
+    : matchedServices.slice(0, SHOW_MORE_THRESHOLD);
+  const hasMore = matchedServices.length > SHOW_MORE_THRESHOLD;
+
+  return (
+    <div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <AnimatePresence mode="popLayout">
+          {visibleServices.map((service, index) => (
+            <ServiceCard
+              key={service.name}
+              service={service}
+              index={index}
+              onSelect={onSelect}
+            />
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {hasMore && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mt-6 flex justify-center"
+        >
+          <Button
+            data-ocid="services.show_more_button"
+            variant="outline"
+            onClick={() => setShowAll((prev) => !prev)}
+            className="font-semibold px-6 py-2 rounded-full transition-all duration-300"
+            style={{
+              borderColor: "oklch(0.75 0.12 15)",
+              color: "oklch(0.55 0.18 15)",
+            }}
+          >
+            {showAll ? (
+              <span className="flex items-center gap-2">Show Less ↑</span>
+            ) : (
+              <span className="flex items-center gap-2">
+                Show {matchedServices.length - SHOW_MORE_THRESHOLD} More ↓
+              </span>
+            )}
+          </Button>
+        </motion.div>
+      )}
+    </div>
   );
 }
 
@@ -231,13 +480,18 @@ export default function ServicesSection() {
     }, 150);
   };
 
+  // Separate featured and category services
+  const featuredServices = FEATURED_SERVICES.map((name) =>
+    services.find((s) => s.name === name),
+  ).filter((s): s is Service => !!s);
+
   return (
     <section
       id="services"
       className="py-20 lg:py-32 relative overflow-hidden"
       style={{ background: "oklch(0.975 0.010 15)" }}
     >
-      {/* Decorative background shape */}
+      {/* Decorative background shapes */}
       <div
         className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full opacity-[0.06] pointer-events-none"
         style={{ background: "oklch(0.72 0.15 15)" }}
@@ -254,7 +508,7 @@ export default function ServicesSection() {
           whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <div className="section-eyebrow">
             <div className="section-eyebrow-line" />
@@ -299,17 +553,100 @@ export default function ServicesSection() {
           </p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.name}
-              service={service}
-              index={index}
-              onSelect={setSelectedService}
+        {/* ── Featured Hero Cards ─────────────────────── */}
+        {featuredServices.length > 0 && (
+          <div className="mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-3 mb-6"
+            >
+              <div
+                className="h-px flex-1 max-w-[60px]"
+                style={{ background: "oklch(0.62 0.18 15)" }}
+              />
+              <span
+                className="text-xs font-bold tracking-widest uppercase"
+                style={{ color: "oklch(0.62 0.18 15)" }}
+              >
+                Signature Treatments
+              </span>
+              <div
+                className="h-px flex-1"
+                style={{ background: "oklch(0.90 0.016 15)" }}
+              />
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {featuredServices.map((service, index) => (
+                <FeaturedCard
+                  key={service.name}
+                  service={service}
+                  index={index}
+                  onSelect={setSelectedService}
+                  ocid={`services.featured.card.${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Category Tabs ───────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, delay: 0.1 }}
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div
+              className="h-px flex-1 max-w-[60px]"
+              style={{ background: "oklch(0.62 0.18 15)" }}
             />
-          ))}
-        </div>
+            <span
+              className="text-xs font-bold tracking-widest uppercase"
+              style={{ color: "oklch(0.62 0.18 15)" }}
+            >
+              Browse by Category
+            </span>
+            <div
+              className="h-px flex-1"
+              style={{ background: "oklch(0.90 0.016 15)" }}
+            />
+          </div>
+
+          <Tabs defaultValue={CATEGORIES[0].id} className="w-full">
+            {/* Tab Bar */}
+            <TabsList
+              className="flex flex-wrap gap-2 h-auto bg-transparent p-0 mb-7"
+              aria-label="Service categories"
+            >
+              {CATEGORIES.map((cat, idx) => (
+                <TabsTrigger
+                  key={cat.id}
+                  value={cat.id}
+                  data-ocid={`services.tab.${idx + 1}`}
+                  className="services-tab-trigger"
+                >
+                  {cat.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {/* Tab Panels */}
+            {CATEGORIES.map((cat) => (
+              <TabsContent key={cat.id} value={cat.id} className="mt-0">
+                <CategoryPanel
+                  categoryServices={cat.services}
+                  allServices={services}
+                  onSelect={setSelectedService}
+                />
+              </TabsContent>
+            ))}
+          </Tabs>
+        </motion.div>
 
         {/* Bottom CTA */}
         <motion.div
@@ -351,7 +688,6 @@ export default function ServicesSection() {
         >
           {selectedService && (
             <>
-              {/* Service Image */}
               {imageUrl && (
                 <div className="relative overflow-hidden h-52 w-full flex-shrink-0">
                   <img
@@ -384,7 +720,6 @@ export default function ServicesSection() {
                   </DialogTitle>
                 </DialogHeader>
 
-                {/* Full description */}
                 <p
                   className="text-sm leading-relaxed mb-6"
                   style={{ color: "oklch(0.45 0.025 20)" }}
@@ -392,7 +727,6 @@ export default function ServicesSection() {
                   {detail?.fullDescription ?? selectedService.description}
                 </p>
 
-                {/* Key Benefits */}
                 {detail && (
                   <div className="mb-6">
                     <h4
@@ -420,10 +754,9 @@ export default function ServicesSection() {
                   </div>
                 )}
 
-                {/* Actions */}
                 <div className="flex gap-3">
                   <Button
-                    data-ocid="service.modal.book_button"
+                    data-ocid="service.modal.primary_button"
                     onClick={handleBookAppointment}
                     className="flex-1 text-white font-semibold"
                     style={{

@@ -133,6 +133,30 @@ const FALLBACK_SERVICES: Service[] = [
       "Professional physiotherapy services at your home for patients with mobility limitations or those who prefer at-home treatment.",
     iconName: "home",
   },
+  {
+    name: "Migraine & Headache Relief",
+    description:
+      "Specialized physiotherapy for migraine, sinus headache, tension headache, and cervicogenic headache through manual therapy and targeted techniques.",
+    iconName: "headache",
+  },
+  {
+    name: "Flexion Distraction Therapy",
+    description:
+      "Gentle, non-surgical spinal decompression using a specialized flexion-distraction table to relieve disc herniation, sciatica, and lumbar pain.",
+    iconName: "flexion",
+  },
+  {
+    name: "Spine Adjustor Tool",
+    description:
+      "Precision spinal adjustments using a computerized spine adjustor tool for safe, controlled, and highly effective vertebral realignment therapy.",
+    iconName: "spineadjust",
+  },
+  {
+    name: "Air Compression Therapy",
+    description:
+      "Sequential pneumatic compression therapy to improve circulation, reduce swelling, relieve lymphedema, and accelerate post-injury recovery.",
+    iconName: "aircompression",
+  },
 ];
 
 const FALLBACK_BUSINESS_HOURS: BusinessHour[] = [
