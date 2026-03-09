@@ -1,5 +1,6 @@
 import { Clock, Sun, Sunset } from "lucide-react";
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 const SCHEDULE = [
   {
@@ -20,14 +21,92 @@ const SCHEDULE = [
   },
 ];
 
+type ClinicStatus =
+  | { type: "open"; closes: string }
+  | { type: "lunch"; reopens: string }
+  | { type: "closed"; nextOpen: string };
+
+function toMinutes(h: number, m: number) {
+  return h * 60 + m;
+}
+
+function getClinicStatus(now: Date): ClinicStatus {
+  const day = now.toLocaleDateString("en-US", { weekday: "long" });
+  const cur = toMinutes(now.getHours(), now.getMinutes());
+  const isSunday = day === "Sunday";
+
+  if (isSunday) {
+    const open = toMinutes(10, 0);
+    const close = toMinutes(14, 0);
+    if (cur >= open && cur < close) return { type: "open", closes: "2:00 PM" };
+    if (cur < open) return { type: "closed", nextOpen: "10:00 AM today" };
+    return { type: "closed", nextOpen: "9:00 AM Monday" };
+  }
+
+  // Mon–Sat
+  const morningOpen = toMinutes(9, 0);
+  const morningClose = toMinutes(14, 0);
+  const eveningOpen = toMinutes(16, 0);
+  const eveningClose = toMinutes(21, 0);
+
+  if (cur >= morningOpen && cur < morningClose)
+    return { type: "open", closes: "2:00 PM" };
+  if (cur >= morningClose && cur < eveningOpen)
+    return { type: "lunch", reopens: "4:00 PM" };
+  if (cur >= eveningOpen && cur < eveningClose)
+    return { type: "open", closes: "9:00 PM" };
+  if (cur < morningOpen) return { type: "closed", nextOpen: "9:00 AM today" };
+  // after 9 PM
+  return { type: "closed", nextOpen: "9:00 AM tomorrow" };
+}
+
 function getTodayName(): string {
   return new Date().toLocaleDateString("en-US", { weekday: "long" });
 }
 
 export default function BusinessHoursSection() {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 60_000);
+    return () => clearInterval(id);
+  }, []);
+
   const todayName = getTodayName();
   const todaySchedule =
     SCHEDULE.find((s) => s.days.includes(todayName)) ?? null;
+  const status = getClinicStatus(now);
+
+  const statusBadge = () => {
+    if (status.type === "open") {
+      return (
+        <span className="flex-shrink-0 flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-300 animate-pulse" />
+          <span className="text-white text-xs font-semibold">Open Now</span>
+        </span>
+      );
+    }
+    if (status.type === "lunch") {
+      return (
+        <span className="flex-shrink-0 flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-yellow-300" />
+          <span className="text-white text-xs font-semibold">Lunch Break</span>
+        </span>
+      );
+    }
+    return (
+      <span className="flex-shrink-0 flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-red-300" />
+        <span className="text-white text-xs font-semibold">Closed</span>
+      </span>
+    );
+  };
+
+  const statusSubtext = () => {
+    if (status.type === "open") return `Closes at ${status.closes}`;
+    if (status.type === "lunch") return `Reopens at ${status.reopens}`;
+    return `Opens at ${status.nextOpen}`;
+  };
 
   return (
     <section id="hours" className="py-12 lg:py-16 bg-white">
@@ -52,7 +131,7 @@ export default function BusinessHoursSection() {
             </h2>
           </motion.div>
 
-          {/* Today's Status Banner */}
+          {/* Today's Live Status Banner */}
           {todaySchedule && (
             <motion.div
               initial={{ opacity: 0, scale: 0.97 }}
@@ -77,17 +156,17 @@ export default function BusinessHoursSection() {
                     {todaySchedule.morning}
                     {todaySchedule.evening && (
                       <span className="text-white/70 font-normal">
-                        {" · Lunch 2–4 PM · "}
+                        {" · "}
                         {todaySchedule.evening}
                       </span>
                     )}
                   </p>
+                  <p className="text-white/70 text-xs mt-0.5">
+                    {statusSubtext()}
+                  </p>
                 </div>
               </div>
-              <span className="flex-shrink-0 flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-300 animate-pulse" />
-                <span className="text-white text-xs font-semibold">Open</span>
-              </span>
+              {statusBadge()}
             </motion.div>
           )}
 
